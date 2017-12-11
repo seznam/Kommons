@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="view_animator"
+          type="id"/>
+    <item name="app_component_adapter_item_bind"
+          type="id"/>
+</resources>

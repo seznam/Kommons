@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion compileVersion
+
+    defaultConfig {
+        applicationId "cz.kubajanda.kommons"
+        minSdkVersion 16
+        targetSdkVersion targetVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    kapt "com.android.databinding:compiler:3.0.1"
+
+    implementation "com.android.support:support-v4:$supportLibsVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibsVersion"
+    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+
+    implementation project(":kommons")
+}
