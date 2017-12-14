@@ -10,6 +10,7 @@ buildscript {
     ext.archComponentsVersion = "1.0.0"
 
     repositories {
+        google()
         jcenter()
     }
 
@@ -17,15 +18,13 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$dokkaVersion"
     }
 }
 
 allprojects {
     repositories {
-        maven {
-            url "https://maven.google.com"
-        }
-
+        google()
         jcenter()
     }
 }
