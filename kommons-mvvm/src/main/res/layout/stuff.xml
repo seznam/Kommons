@@ -3,6 +3,9 @@
     <data>
         <variable name="viewModel"
                   type="cz.seznam.kommons.mvvm.IViewModel"/>
+
+        <variable name="viewActions"
+                  type="cz.seznam.kommons.mvvm.IViewActions"/>
     </data>
     <View android:layout_width="match_parent"
           android:layout_height="match_parent"

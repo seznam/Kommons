@@ -7,16 +7,19 @@ import android.support.annotation.CallSuper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cz.kubajanda.kommons.mvvm.BR
 
 /**
  * @author Jakub Janda
  */
-open class DataBindingView<in T : IViewModel, V : ViewDataBinding>(private val viewRes: Int) : IBindableView<T> {
+open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions>(private val viewRes: Int) :
+		IBindAbleView<T, A> {
 	var viewBinding: V? = null
+	var viewActions: A? = null
+	var viewModel: T? = null
+	var bound: Boolean = false
 
 	@CallSuper
-	override fun createView(inflater: LayoutInflater, parent: ViewGroup): View {
+	override fun createView(inflater: LayoutInflater, parent: ViewGroup?): View {
 		val v = DataBindingUtil.inflate<V>(inflater, viewRes, parent, false)
 		this.viewBinding = v
 		return v.root
@@ -26,13 +29,18 @@ open class DataBindingView<in T : IViewModel, V : ViewDataBinding>(private val v
 	 *
 	 */
 	@CallSuper
-	override fun bind(viewModel: T, lifecycleOwner: LifecycleOwner) {
+	override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
+		this.viewActions = viewActions
 		viewBinding?.setVariable(BR.viewModel, viewModel)
+		viewBinding?.setVariable(BR.viewActions, viewActions)
+		this.viewModel = viewModel
+		bound = true
 	}
 
 	@CallSuper
-	override fun unbind() {
+	override fun unbind(lifecycleOwner: LifecycleOwner) {
+		bound = false
 		viewBinding?.unbind()
-		viewBinding = null
+		viewModel = null
 	}
 }

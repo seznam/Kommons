@@ -13,10 +13,12 @@ import android.view.ViewGroup
  *
  * @author Jakub Janda
  */
-abstract class MVVMFragment<M : IViewModel> : Fragment() {
+abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
 	abstract val viewModel: M?
 
-	abstract val view: IBindableView<M>?
+	abstract val view: IBindAbleView<M, A>?
+
+	abstract val viewActions: A?
 
 	override fun onCreateView(inflater: LayoutInflater,
 														container: ViewGroup?,
@@ -24,19 +26,20 @@ abstract class MVVMFragment<M : IViewModel> : Fragment() {
 		val view = view
 		val viewModel = viewModel
 
-		if (view != null && viewModel != null && container != null) {
+		if (view != null && viewModel != null) {
 			val v = view.createView(inflater, container)
 
 			if (savedInstanceState != null) {
 				viewModel.loadState(savedInstanceState)
 			}
 
-			view.bind(viewModel, this)
+			view.bind(viewModel, viewActions, this)
 			return v
 		} else {
 			return super.onCreateView(inflater, container, savedInstanceState)
 		}
 	}
+
 
 	override fun onSaveInstanceState(outState: Bundle) {
 		super.onSaveInstanceState(outState)
@@ -46,6 +49,6 @@ abstract class MVVMFragment<M : IViewModel> : Fragment() {
 	override fun onDestroyView() {
 		super.onDestroyView()
 
-		view?.unbind()
+		view?.unbind(this)
 	}
 }

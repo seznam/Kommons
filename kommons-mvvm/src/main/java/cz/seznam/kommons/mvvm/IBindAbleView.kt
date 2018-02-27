@@ -11,7 +11,7 @@ import android.view.ViewGroup
  *
  * @author Jakub Janda
  */
-interface IBindableView<in T : IViewModel> {
+interface IBindAbleView<in T : IViewModel, in A : IViewActions> {
 
 	/** Creates view.
 	 *
@@ -23,7 +23,7 @@ interface IBindableView<in T : IViewModel> {
 	 * @return your view
 	 */
 	fun createView(inflater: LayoutInflater,
-								 parent: ViewGroup): View
+								 parent: ViewGroup?): View
 
 	/** Binds model to your view.
 	 *
@@ -34,6 +34,7 @@ interface IBindableView<in T : IViewModel> {
 	 * @param lifecycleOwner lifecycle owner you can use for observing livedata from your model
 	 */
 	fun bind(viewModel: T,
+					 viewActions: A?,
 					 lifecycleOwner: LifecycleOwner)
 
 	/** Unbinds model from your view.
@@ -42,5 +43,5 @@ interface IBindableView<in T : IViewModel> {
 	 * Typically called in onDestroyView phase.
 	 *
 	 */
-	fun unbind()
+	fun unbind(lifecycleOwner: LifecycleOwner)
 }

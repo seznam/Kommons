@@ -30,8 +30,11 @@ dependencies {
 
     implementation "com.android.support:support-v4:$supportLibsVersion"
     implementation "com.android.support:appcompat-v7:$supportLibsVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibsVersion"
+
     implementation "android.arch.lifecycle:runtime:$archComponentsVersion"
     implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
 repositories {
