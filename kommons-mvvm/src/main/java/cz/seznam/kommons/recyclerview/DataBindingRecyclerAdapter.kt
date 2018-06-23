@@ -56,11 +56,11 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(val context: C
 	open fun onCreateView(parent: ViewGroup,
 												viewType: Int): H = DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
 
-	override fun onBindViewHolder(holder: ViewDataBindingHolder<H>?, position: Int) {
+	override fun onBindViewHolder(holder: ViewDataBindingHolder<H>, position: Int) {
 		val viewModel = data[position]
-		holder?.view?.setVariable(BR.viewModel, viewModel)
-		holder?.view?.setVariable(BR.viewActions, getViewActions(position))
-		holder?.view?.executePendingBindings()
+		holder.view.setVariable(BR.viewModel, viewModel)
+		holder.view.setVariable(BR.viewActions, getViewActions(position))
+		holder.view.executePendingBindings()
 	}
 
 	override fun getItemViewType(position: Int): Int = getViewResource(position)
