@@ -8,7 +8,7 @@ import android.widget.EditText
  * @author Jakub Janda
  */
 
-fun EditText.onTextChanged(listener: (query: String) -> Unit) = addTextChangedListener(object : TextWatcher {
+inline fun EditText.onTextChanged(crossinline listener: (query: String) -> Unit) = addTextChangedListener(object : TextWatcher {
 	override fun afterTextChanged(s: Editable?) = Unit
 
 	override fun beforeTextChanged(s: CharSequence?,

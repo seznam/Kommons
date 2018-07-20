@@ -6,7 +6,7 @@ android {
     compileSdkVersion compileVersion
 
     defaultConfig {
-        applicationId "cz.kubajanda.kommons"
+        applicationId "cz.seznam.kommons.examples"
         minSdkVersion 16
         targetSdkVersion targetVersion
         versionCode 1
@@ -26,12 +26,15 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
-    kapt "com.android.databinding:compiler:3.0.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    kapt "com.android.databinding:compiler:$androidGradleVersion"
+
+    implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
+    kapt "android.arch.lifecycle:compiler:$archComponentsVersion"
 
     implementation "com.android.support:support-v4:$supportLibsVersion"
     implementation "com.android.support:appcompat-v7:$supportLibsVersion"
-    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+    implementation "com.android.support.constraint:constraint-layout:1.1.2"
 
-    implementation project(":kommons")
+    implementation project(':kommons-core')
 }

@@ -1,4 +1,4 @@
-package cz.seznam.kommons.mvvm.kexts
+package cz.seznam.kommons.kexts
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData

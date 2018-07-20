@@ -1,4 +1,4 @@
-package cz.seznam.kommons
+package cz.seznam.kommons.examples
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

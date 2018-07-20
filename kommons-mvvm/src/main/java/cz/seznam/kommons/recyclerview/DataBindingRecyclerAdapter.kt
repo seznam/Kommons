@@ -3,7 +3,8 @@ package cz.seznam.mapy.widget
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import cz.seznam.kommons.mvvm.BR
@@ -12,30 +13,39 @@ import cz.seznam.kommons.mvvm.IViewActions
 /**
  * @author Jakub Janda
  */
-abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(val context: Context) : RecyclerView.Adapter<ViewDataBindingHolder<H>>() {
+abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(context: Context,
+																																	itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()) :
+		ListAdapter<T, ViewDataBindingHolder<H>>(itemCallbacks) {
 	private val data = ArrayList<T>()
-	val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-
-	val items: List<T> = data
+	private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
 	open fun clear() {
 		data.clear()
-		notifyDataSetChanged()
+
+		submitList(ArrayList(data))
 	}
 
 	open fun add(item: T, position: Int = -1) {
 		if (position >= 0) {
 			data.add(position, item)
-			notifyItemInserted(position)
 		} else {
 			data.add(item)
-			notifyItemInserted(data.size - 1)
 		}
+
+		submitList(ArrayList(data))
 	}
 
 	open fun add(items: Collection<T>) {
 		this.data.addAll(items)
-		notifyDataSetChanged()
+
+		submitList(ArrayList(data))
+	}
+
+	open fun set(items: Collection<T>) {
+		this.data.clear()
+		data.addAll(items)
+
+		submitList(ArrayList(data))
 	}
 
 	open fun remove(item: T) {
@@ -43,11 +53,14 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(val context: C
 
 		if (index > -1) {
 			data.remove(item)
-			notifyItemRemoved(index)
+
+			submitList(ArrayList(data))
 		}
 	}
 
-	override fun getItemCount() = data.size
+	public override fun getItem(position: Int): T {
+		return super.getItem(position)
+	}
 
 	override fun onCreateViewHolder(parent: ViewGroup,
 																	viewType: Int): ViewDataBindingHolder<H> = ViewDataBindingHolder(onCreateView(parent,
@@ -57,15 +70,22 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(val context: C
 												viewType: Int): H = DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
 
 	override fun onBindViewHolder(holder: ViewDataBindingHolder<H>, position: Int) {
-		val viewModel = data[position]
-		holder.view.setVariable(BR.viewModel, viewModel)
-		holder.view.setVariable(BR.viewActions, getViewActions(position))
-		holder.view.executePendingBindings()
+		val viewModel = getItem(position)
+		holder.viewBinding.setVariable(BR.viewModel, viewModel)
+		holder.viewBinding.setVariable(BR.viewActions, getViewActions(position))
+		holder.viewBinding.executePendingBindings()
 	}
+
 
 	override fun getItemViewType(position: Int): Int = getViewResource(position)
 
 	abstract fun getViewResource(position: Int): Int
 
 	open fun getViewActions(position: Int): IViewActions? = null
+
+	class EmptyDataBindingItemCallback<T> : DiffUtil.ItemCallback<T>() {
+		override fun areItemsTheSame(oldItem: T, newItem: T) = false
+
+		override fun areContentsTheSame(oldItem: T, newItem: T) = false
+	}
 }
