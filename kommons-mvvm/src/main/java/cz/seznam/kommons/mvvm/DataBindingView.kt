@@ -31,6 +31,7 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
 	@CallSuper
 	override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
 		this.viewActions = viewActions
+		viewBinding?.setLifecycleOwner(lifecycleOwner)
 		viewBinding?.setVariable(BR.viewModel, viewModel)
 		viewBinding?.setVariable(BR.viewActions, viewActions)
 		this.viewModel = viewModel
