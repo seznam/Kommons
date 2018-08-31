@@ -12,4 +12,8 @@ interface IViewModel {
 	fun saveState(data: Bundle) = Unit
 
 	fun loadState(data: Bundle) = Unit
+
+	fun onBind() {}
+
+	fun onUnbind() {}
 }

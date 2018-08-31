@@ -34,6 +34,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
 			}
 
 			view.bind(viewModel, viewActions, this)
+			viewModel.onBind()
 			return v
 		} else {
 			return super.onCreateView(inflater, container, savedInstanceState)
@@ -50,5 +51,6 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
 		super.onDestroyView()
 
 		view?.unbind(this)
+		viewModel?.onUnbind()
 	}
 }
