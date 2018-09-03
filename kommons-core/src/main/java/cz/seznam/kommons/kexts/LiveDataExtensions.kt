@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
+import android.os.Looper
 
 /**
  * @author Jakub Janda
@@ -24,4 +25,12 @@ fun <X, Y> LiveData<X>.map(mapper: (X?) -> Y): LiveData<Y> = Transformations.map
 fun <T> MutableLiveData<T>.shoot(value: T) {
 	setValue(value)
 	setValue(null)
+}
+
+fun <T> MutableLiveData<T>.setOrPost(value: T?) {
+	if (Thread.currentThread() == Looper.getMainLooper().thread) {
+		this.value = value
+	} else {
+		postValue(value)
+	}
 }
