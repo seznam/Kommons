@@ -1,5 +1,6 @@
-package cz.seznam.kommons.kexts
+package cz.seznam.kommons.rx
 
+import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -37,7 +38,7 @@ fun Completable.observeMain(): Completable = this.observeOn(AndroidSchedulers.ma
 
 fun <T : Any> Observable<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
 	return safeSubscribe(onSuccess, {
-		logW(it.toString())
+		Log.w("RxExtensions", it.toString())
 	}, null)
 }
 
@@ -63,7 +64,7 @@ fun <T : Any> Observable<T>.safeSubscribe(onSuccess: (T) -> Unit,
 
 fun <T : Any> Single<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
 	return safeSubscribe(onSuccess, onError = {
-		logW(it.toString())
+		Log.w("RxExtensions", it.toString())
 	})
 }
 
@@ -83,7 +84,7 @@ fun <T : Any> Single<T>.safeSubscribe(onSuccess: (T) -> Unit,
 
 inline fun Completable.safeSubscribe(crossinline onComplete: () -> Unit = {}): Disposable {
 	return safeSubscribe(onComplete, onError = {
-		logW(it.toString())
+		Log.w("RxExtensions", it.toString())
 	})
 }
 
@@ -104,7 +105,7 @@ inline fun Completable.safeSubscribe(crossinline onComplete: () -> Unit = {},
  */
 fun <T : Any> Flowable<T>.safeSubscribe(onNext: (T) -> Unit,
 																				onError: (Throwable) -> Unit = {
-																					logW(it.toString())
+																					Log.w("RxExtensions", it.toString())
 																				},
 																				onComplete: (() -> Unit)? = null): Disposable {
 	val subscriptionLock = Object()
