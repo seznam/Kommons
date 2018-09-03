@@ -9,7 +9,7 @@ import cz.seznam.mapy.widget.DataBindingRecyclerAdapter
 /**
  * @author Jakub Janda
  */
-class SimpleRecyclerAdapter<T>(context: Context,
+open class SimpleRecyclerAdapter<T>(context: Context,
 															 private val resourceId: Int,
 															 private val viewActions: IViewActions? = null,
 															 itemCallback: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()) :

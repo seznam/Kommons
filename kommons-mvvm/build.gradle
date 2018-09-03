@@ -5,6 +5,7 @@ repositories {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply from: '../versions.gradle'
 android {
     compileSdkVersion compileVersion
 
@@ -28,15 +29,15 @@ android {
 }
 
 dependencies {
-    kapt "com.android.databinding:compiler:$androidGradleVersion"
-    kapt "android.arch.lifecycle:compiler:$archComponentsVersion"
+    kapt "com.android.databinding:compiler:$kommons_androidGradleVersion"
+    kapt "android.arch.lifecycle:compiler:$kommons_archComponentsVersion"
 
-    implementation "com.android.support:support-v4:$supportLibsVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibsVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibsVersion"
+    implementation "com.android.support:support-v4:$kommons_supportLibsVersion"
+    implementation "com.android.support:appcompat-v7:$kommons_supportLibsVersion"
+    implementation "com.android.support:recyclerview-v7:$kommons_supportLibsVersion"
 
-    implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "android.arch.lifecycle:extensions:$kommons_archComponentsVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kommons_kotlinVersion"
 }
 repositories {
     mavenCentral()

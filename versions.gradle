@@ -1,0 +1,7 @@
+ext.kommons_kotlinVersion = '1.2.51'
+ext.kommons_compileVersion = 27
+ext.kommons_targetVersion = 27
+ext.kommons_supportLibsVersion = "27.1.1"
+ext.kommons_dokkaVersion = "0.9.15"
+ext.kommons_archComponentsVersion = "1.1.1"
+ext.kommons_androidGradleVersion = "3.1.4"
