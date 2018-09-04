@@ -29,22 +29,12 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
 		if (view != null && viewModel != null) {
 			val v = view.createView(inflater, container)
 
-			if (savedInstanceState != null) {
-				viewModel.loadState(savedInstanceState)
-			}
-
 			view.bind(viewModel, viewActions, this)
 			viewModel.onBind()
 			return v
 		} else {
 			return super.onCreateView(inflater, container, savedInstanceState)
 		}
-	}
-
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		viewModel?.saveState(outState)
 	}
 
 	override fun onDestroyView() {
