@@ -1,6 +1,5 @@
 package cz.seznam.kommons.rx
 
-import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -8,7 +7,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 /**
@@ -16,30 +14,49 @@ import java.util.concurrent.TimeUnit
  */
 
 
-fun <T : Any> Observable<T>.subscribeIO(): Observable<T> = this.subscribeOn(Schedulers.io())
+fun <T : Any> Observable<T>.subsOnIO(): Observable<T> = this.subscribeOn(Rx.schedulers.io())
 
-fun <T : Any> Observable<T>.observeMain(): Observable<T> = this.observeOn(AndroidSchedulers.mainThread())
+fun <T : Any> Flowable<T>.subsOnIO(): Flowable<T> = this.subscribeOn(Rx.schedulers.io())
 
-fun <T : Any> Single<T>.subscribeIO(): Single<T> = this.subscribeOn(Schedulers.io())
+fun <T : Any> Single<T>.subsOnIO(): Single<T> = this.subscribeOn(Rx.schedulers.io())
 
-fun <T : Any> Single<T>.subscribeComp(): Single<T> = this.subscribeOn(Schedulers.computation())
+fun <T : Any> Completable.subsOnIO(): Completable = this.subscribeOn(Rx.schedulers.io())
 
-fun <T : Any> Single<T>.onNewThread(): Single<T> = this.subscribeOn(Schedulers.newThread())
+fun <T : Any> Observable<T>.subsOnUi(): Observable<T> = this.subscribeOn(Rx.schedulers.mainThread())
 
-fun <T : Any> Single<T>.observeMain(): Single<T> = this.observeOn(AndroidSchedulers.mainThread())
+fun <T : Any> Flowable<T>.subsOnUi(): Flowable<T> = this.subscribeOn(Rx.schedulers.mainThread())
 
-fun Completable.subscribeIO(): Completable = this.subscribeOn(Schedulers.io())
+fun <T : Any> Single<T>.subsOnUi(): Single<T> = this.subscribeOn(Rx.schedulers.mainThread())
 
-fun Completable.subscribeComp(): Completable = this.subscribeOn(Schedulers.computation())
+fun <T : Any> Completable.subsOnUi(): Completable = this.subscribeOn(Rx.schedulers.mainThread())
 
-fun Completable.onNewThread(): Completable = this.subscribeOn(Schedulers.newThread())
+fun <T : Any> Observable<T>.subsOnNewThread(): Observable<T> = this.subscribeOn(Rx.schedulers.newThread())
 
-fun Completable.observeMain(): Completable = this.observeOn(AndroidSchedulers.mainThread())
+fun <T : Any> Flowable<T>.subsOnNewThread(): Flowable<T> = this.subscribeOn(Rx.schedulers.newThread())
+
+fun <T : Any> Single<T>.subsOnNewThread(): Single<T> = this.subscribeOn(Rx.schedulers.newThread())
+
+fun Completable.subsOnNewThread(): Completable = this.subscribeOn(Rx.schedulers.newThread())
+
+fun <T : Any> Observable<T>.subsOnComputation(): Observable<T> = this.subscribeOn(Rx.schedulers.computation())
+
+fun <T : Any> Flowable<T>.subsOnComputation(): Flowable<T> = this.subscribeOn(Rx.schedulers.computation())
+
+fun <T : Any> Single<T>.subsOnComputation(): Single<T> = this.subscribeOn(Rx.schedulers.computation())
+
+fun Completable.subsOnComputation(): Completable = this.subscribeOn(Rx.schedulers.computation())
+
+fun <T : Any> Observable<T>.obsOnUI(): Observable<T> = this.observeOn(Rx.schedulers.mainThread())
+
+fun <T : Any> Flowable<T>.obsOnUI(): Flowable<T> = this.observeOn(Rx.schedulers.mainThread())
+
+fun <T : Any> Single<T>.obsOnUI(): Single<T> = this.observeOn(Rx.schedulers.mainThread())
+
+fun Completable.obsOnUI(): Completable = this.observeOn(Rx.schedulers.mainThread())
+
 
 fun <T : Any> Observable<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
-	return safeSubscribe(onSuccess, {
-		Log.w("RxExtensions", it.toString())
-	}, null)
+	return safeSubscribe(onSuccess, Rx.defaultErrorHandler, null)
 }
 
 /** Subscribes observable and guard callbacks from call after unsubscribe is called.
@@ -63,9 +80,7 @@ fun <T : Any> Observable<T>.safeSubscribe(onSuccess: (T) -> Unit,
 }
 
 fun <T : Any> Single<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
-	return safeSubscribe(onSuccess, onError = {
-		Log.w("RxExtensions", it.toString())
-	})
+	return safeSubscribe(onSuccess, onError = Rx.defaultErrorHandler)
 }
 
 /** Subscribes observable and guard callbacks from call after unsubscribe is called.
@@ -83,9 +98,7 @@ fun <T : Any> Single<T>.safeSubscribe(onSuccess: (T) -> Unit,
 }
 
 inline fun Completable.safeSubscribe(crossinline onComplete: () -> Unit = {}): Disposable {
-	return safeSubscribe(onComplete, onError = {
-		Log.w("RxExtensions", it.toString())
-	})
+	return safeSubscribe(onComplete, onError = Rx.defaultErrorHandler)
 }
 
 inline fun Completable.safeSubscribe(crossinline onComplete: () -> Unit = {},
@@ -104,9 +117,7 @@ inline fun Completable.safeSubscribe(crossinline onComplete: () -> Unit = {},
  * @return disposable
  */
 fun <T : Any> Flowable<T>.safeSubscribe(onNext: (T) -> Unit,
-																				onError: (Throwable) -> Unit = {
-																					Log.w("RxExtensions", it.toString())
-																				},
+																				onError: (Throwable) -> Unit = Rx.defaultErrorHandler,
 																				onComplete: (() -> Unit)? = null): Disposable {
 	val subscriptionLock = Object()
 	var subscriptionActive = true
@@ -133,6 +144,7 @@ inline fun startTimer(interval: Long,
 											timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
 											crossinline callback: () -> Unit): Disposable = Flowable.interval(interval, timeUnit)
 		.onBackpressureLatest()
+		.subsOnComputation()
 		.safeSubscribe({ callback() }, {}, {})
 
 /** Creates Observable.interval and subscribe it with safeSubscribe on main thread.
@@ -149,8 +161,20 @@ inline fun startUiTimer(interval: Long,
 		.onBackpressureLatest()
 		.safeSubscribe({ callback() }, {}, {})
 
-val Disposable.isSubscribed: Boolean
-	get() = !this.isDisposed
+/** Creates Observable.timer and subscribes it with safeSubscribe on main thread.
+ *
+ * @param interval interval before callback is called
+ * @param timeUnit unit of interval, default is milliseconds
+ * @param callback callback which is called after interval
+ */
+inline fun startUiCountdown(interval: Long,
+														timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
+														crossinline callback: () -> Unit): Disposable {
+	return Flowable.timer(interval, timeUnit)
+			.onBackpressureLatest()
+			.observeOn(AndroidSchedulers.mainThread())
+			.safeSubscribe({ callback() }, {}, {})
+}
 
 val Disposable.isNotDisposed: Boolean
 	get() = !this.isDisposed
