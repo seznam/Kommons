@@ -1,4 +1,4 @@
-package cz.seznam.mapy.widget
+package cz.seznam.kommons.recyclerview
 
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -17,7 +17,7 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(context: Conte
 																																	itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()) :
 		ListAdapter<T, ViewDataBindingHolder<H>>(itemCallbacks) {
 	private val data = ArrayList<T>()
-	private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
+	val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
 	open fun clear() {
 		data.clear()
@@ -60,6 +60,10 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(context: Conte
 
 	public override fun getItem(position: Int): T {
 		return super.getItem(position)
+	}
+
+	fun getPosition(item: T): Int {
+		return data.indexOf(item)
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup,

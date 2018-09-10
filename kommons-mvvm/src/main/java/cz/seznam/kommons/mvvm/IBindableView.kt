@@ -11,7 +11,7 @@ import android.view.ViewGroup
  *
  * @author Jakub Janda
  */
-interface IBindAbleView<in T : IViewModel, in A : IViewActions> {
+interface IBindableView<in T : IViewModel, in A : IViewActions> {
 
 	/** Creates view.
 	 *

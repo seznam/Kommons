@@ -20,7 +20,7 @@ fun <T : Any> Flowable<T>.subsOnIO(): Flowable<T> = this.subscribeOn(Rx.schedule
 
 fun <T : Any> Single<T>.subsOnIO(): Single<T> = this.subscribeOn(Rx.schedulers.io())
 
-fun <T : Any> Completable.subsOnIO(): Completable = this.subscribeOn(Rx.schedulers.io())
+fun Completable.subsOnIO(): Completable = this.subscribeOn(Rx.schedulers.io())
 
 fun <T : Any> Observable<T>.subsOnUi(): Observable<T> = this.subscribeOn(Rx.schedulers.mainThread())
 

@@ -4,7 +4,6 @@ import android.content.Context
 import android.databinding.ViewDataBinding
 import android.support.v7.util.DiffUtil
 import cz.seznam.kommons.mvvm.IViewActions
-import cz.seznam.mapy.widget.DataBindingRecyclerAdapter
 
 /**
  * @author Jakub Janda
