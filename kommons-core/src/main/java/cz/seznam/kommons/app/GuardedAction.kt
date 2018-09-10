@@ -5,7 +5,7 @@ package cz.seznam.kommons.app
  */
 abstract class GuardedAction<P>(private val action: (P) -> Unit) {
 	var invokeMinInterval = DEFAULT_MIN_INTERVAL
-	var lastInvokeTime = 0L
+	private var lastInvokeTime = 0L
 
 	fun invoke(param: P) {
 		val currentTime = System.currentTimeMillis()
@@ -13,7 +13,7 @@ abstract class GuardedAction<P>(private val action: (P) -> Unit) {
 
 		if (timeDiff > invokeMinInterval && isInvokable()) {
 			lastInvokeTime = currentTime
-			return action(param)
+			action(param)
 		}
 	}
 

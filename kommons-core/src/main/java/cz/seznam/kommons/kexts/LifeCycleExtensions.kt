@@ -20,6 +20,16 @@ fun <P> LifecycleOwner.guardAction(action: ((P) -> Unit)): (param: P) -> Unit {
 	return guardian::invoke
 }
 
+fun Lifecycle.guardAction(action: (() -> Unit)): () -> Unit {
+	val guardian = LifecycleGuardedVoidAction(this, action)
+	return guardian::invoke
+}
+
+fun <P> Lifecycle.guardAction(action: ((P) -> Unit)): (param: P) -> Unit {
+	val guardian = LifecycleGuardedAction(this, action)
+	return guardian::invoke
+}
+
 inline fun LifecycleOwner.ifResumed(callback: () -> Unit) {
 	if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
 		callback()
