@@ -12,7 +12,13 @@ import android.view.ViewGroup
 fun ViewGroup.inflate(layoutResId: Int,
 											attachToParent: Boolean = true): View {
 	val inflater = LayoutInflater.from(this.context)
-	return inflater.inflate(layoutResId, this, attachToParent)
+	val view = inflater.inflate(layoutResId, this, false)
+
+	if (attachToParent) {
+		addView(view)
+	}
+
+	return view
 }
 
 val ViewGroup.children: Array<View>
