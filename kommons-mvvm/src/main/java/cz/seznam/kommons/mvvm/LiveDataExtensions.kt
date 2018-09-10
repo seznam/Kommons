@@ -13,26 +13,22 @@ fun <T : Any?> LiveData<T>.observe(owner: LifecycleOwner,
 })
 
 
-class LifecycleBindings(val lifecycleOwner: LifecycleOwner) {
+class LiveDataObservers(val lifecycleOwner: LifecycleOwner) {
 	fun <T> LiveData<T>.observe(callback: (value: T?) -> Unit) = observe(lifecycleOwner, Observer {
 		callback.invoke(it)
 	})
 
-	infix fun <T> LiveData<T>.with(setter: (v: T?) -> Unit) {
+	infix fun <T> LiveData<T>.by(setter: (v: T?) -> Unit) {
 		this.observe(setter)
 	}
 
-	infix fun <T> LiveData<T>.with(property: KMutableProperty0<T?>) {
+	infix fun <T> LiveData<T>.by(property: KMutableProperty0<T?>) {
 		this.observe { property.set(it) }
-	}
-
-	infix fun <T> KMutableProperty0<T?>.with(v: LiveData<T>) {
-		v.observe(::set)
 	}
 }
 
-fun LifecycleOwner.bind(init: LifecycleBindings.() -> Unit): LifecycleBindings {
-	val views = LifecycleBindings(this)  // create the receiver object
+fun LifecycleOwner.observe(init: LiveDataObservers.() -> Unit): LiveDataObservers {
+	val views = LiveDataObservers(this)  // create the receiver object
 	views.init()        // pass the receiver object to the lambda
 	return views
 }
