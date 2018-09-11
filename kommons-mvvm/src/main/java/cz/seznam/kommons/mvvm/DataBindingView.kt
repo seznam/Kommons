@@ -55,7 +55,7 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
 
 	protected open fun onUnbind(lifecycleOwner: LifecycleOwner) {}
 
-	fun observer(init: LiveDataObservers.() -> Unit): LiveDataObservers {
+	fun observe(init: LiveDataObservers.() -> Unit): LiveDataObservers {
 		val lifecycleOwner = lifecycleOwner ?: throw RuntimeException("Can't bind unbinded views!")
 		return lifecycleOwner.observe(init)
 	}
