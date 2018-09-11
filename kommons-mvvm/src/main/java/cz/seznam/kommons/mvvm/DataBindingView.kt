@@ -1,12 +1,14 @@
 package cz.seznam.kommons.mvvm
 
 import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.LiveData
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.CallSuper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlin.reflect.KMutableProperty0
 
 /**
  * @author Jakub Janda
@@ -55,8 +57,13 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
 
 	protected open fun onUnbind(lifecycleOwner: LifecycleOwner) {}
 
-	fun observe(init: LiveDataObservers.() -> Unit): LiveDataObservers {
+	infix fun <T> LiveData<T>.observeBy(setter: (v: T?) -> Unit) {
 		val lifecycleOwner = lifecycleOwner ?: throw RuntimeException("Can't bind unbinded views!")
-		return lifecycleOwner.observe(init)
+		this.observe(lifecycleOwner, setter)
+	}
+
+	infix fun <T> LiveData<T>.observeBy(property: KMutableProperty0<T?>) {
+		val lifecycleOwner = lifecycleOwner ?: throw RuntimeException("Can't bind unbinded views!")
+		this.observe(lifecycleOwner) { property.set(it) }
 	}
 }
