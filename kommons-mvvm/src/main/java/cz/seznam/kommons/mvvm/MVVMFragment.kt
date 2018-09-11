@@ -16,7 +16,7 @@ import android.view.ViewGroup
 abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
 	abstract val viewModel: M?
 
-	abstract val view: IBindAbleView<M, A>?
+	abstract val view: IBindableView<M, A>?
 
 	abstract val viewActions: A?
 

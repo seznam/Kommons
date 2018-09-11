@@ -12,11 +12,12 @@ import android.view.ViewGroup
  * @author Jakub Janda
  */
 open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions>(private val viewRes: Int) :
-		IBindAbleView<T, A> {
+		IBindableView<T, A> {
 	var viewBinding: V? = null
 	var viewActions: A? = null
 	var viewModel: T? = null
 	var bound: Boolean = false
+	var lifecycleOwner: LifecycleOwner? = null
 
 	@CallSuper
 	override fun createView(inflater: LayoutInflater, parent: ViewGroup?): View {
@@ -28,20 +29,34 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
 	/**
 	 *
 	 */
-	@CallSuper
-	override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
+	final override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
+		this.lifecycleOwner = lifecycleOwner
 		this.viewActions = viewActions
 		viewBinding?.setLifecycleOwner(lifecycleOwner)
 		viewBinding?.setVariable(BR.viewModel, viewModel)
 		viewBinding?.setVariable(BR.viewActions, viewActions)
 		this.viewModel = viewModel
 		bound = true
+
+		onBind(viewModel, viewActions, lifecycleOwner)
 	}
 
-	@CallSuper
-	override fun unbind(lifecycleOwner: LifecycleOwner) {
+	final override fun unbind(lifecycleOwner: LifecycleOwner) {
+		onUnbind(lifecycleOwner)
+
+		this.lifecycleOwner = null
 		bound = false
 		viewBinding?.unbind()
 		viewModel = null
+		viewActions = null
+	}
+
+	protected open fun onBind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {}
+
+	protected open fun onUnbind(lifecycleOwner: LifecycleOwner) {}
+
+	fun observe(init: LiveDataObservers.() -> Unit): LiveDataObservers {
+		val lifecycleOwner = lifecycleOwner ?: throw RuntimeException("Can't bind unbinded views!")
+		return lifecycleOwner.observe(init)
 	}
 }

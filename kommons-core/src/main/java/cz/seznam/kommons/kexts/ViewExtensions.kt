@@ -73,8 +73,45 @@ fun View.animateScale(from: Float = scale,
 	return setViewAnimation(this, anim)
 }
 
+
+fun View.createTranslationX(from: Float = this.translationX, to: Float): Animator = ObjectAnimator.ofFloat(this,
+																																																					 "translationX",
+																																																					 from,
+																																																					 to)
+
+fun View.createAnimTransY(from: Float = this.translationY, to: Float): Animator = ObjectAnimator.ofFloat(this,
+																																																				 "translationY",
+																																																				 from,
+																																																				 to)
+
+fun View.createAlphaAnim(from: Float = this.alpha, to: Float): Animator = ObjectAnimator.ofFloat(this,
+																																																 "alpha",
+																																																 from,
+																																																 to)
+
+fun View.createScaleAnim(from: Float = this.scale, to: Float): Animator {
+
+	val anim = AnimatorSet()
+	anim.playTogether(ObjectAnimator.ofFloat(this, "scaleX", from, to),
+										ObjectAnimator.ofFloat(this, "scaleY", from, to))
+
+	return anim
+}
+
+fun View.createRotateAnim(from: Float = this.rotation, to: Float): Animator = ObjectAnimator.ofFloat(this,
+																																																		 "rotation",
+																																																		 from,
+																																																		 to)
+
+fun View.clearAnim() {
+	val oldAnim = getTag(R.id.view_animator) as? Animator?
+	oldAnim?.cancel()
+}
+
 private fun setViewAnimation(view: View,
 														 animator: Animator): Animator {
+	val oldAnim = view.getTag(R.id.view_animator) as? Animator?
+	oldAnim?.cancel()
 	(view.getTag(R.id.view_animator) as? Animator?)?.cancel()
 	view.setTag(R.id.view_animator, animator)
 	animator.onEnd { view.setTag(R.id.view_animator, null) }
@@ -93,6 +130,7 @@ var View.topMargin: Int
 	set(value) {
 		val lp = layoutParams as ViewGroup.MarginLayoutParams
 		lp.topMargin = value
+		requestLayout()
 	}
 
 var View.bottomMargin: Int
@@ -103,6 +141,7 @@ var View.bottomMargin: Int
 	set(value) {
 		val lp = layoutParams as ViewGroup.MarginLayoutParams
 		lp.bottomMargin = value
+		requestLayout()
 	}
 
 var View.rightMargin: Int
@@ -113,6 +152,7 @@ var View.rightMargin: Int
 	set(value) {
 		val lp = layoutParams as ViewGroup.MarginLayoutParams
 		lp.rightMargin = value
+		requestLayout()
 	}
 
 var View.leftMargin: Int
@@ -123,4 +163,5 @@ var View.leftMargin: Int
 	set(value) {
 		val lp = layoutParams as ViewGroup.MarginLayoutParams
 		lp.leftMargin = value
+		requestLayout()
 	}

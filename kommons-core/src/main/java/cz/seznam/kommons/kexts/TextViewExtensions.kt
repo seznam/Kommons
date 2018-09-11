@@ -1,6 +1,7 @@
 package cz.seznam.kommons.kexts
 
 import android.graphics.drawable.Drawable
+import android.support.annotation.StringRes
 import android.widget.TextView
 import cz.seznam.kommons.utils.TintUtils
 
@@ -52,3 +53,7 @@ fun TextView.setDrawableLeft(drawableRes: Int,
 }
 
 fun TextView.setDrawableLeft(drawable: Drawable) = setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+
+fun TextView.setText(@StringRes resId: Int, vararg args: Any) {
+	text = context.getString(resId, *args)
+}
