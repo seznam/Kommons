@@ -33,7 +33,7 @@ fun LifecycleOwner.observe(init: LiveDataObservers.() -> Unit): LiveDataObserver
 	return views
 }
 
-fun <X, Y> LiveData<X>.map(mapper: (X) -> Y): LiveData<Y> = Transformations.map(this, mapper)
+fun <X, Y> LiveData<X>.map(mapper: (X?) -> Y?): LiveData<Y> = Transformations.map(this, mapper)
 
 /** Nastavi danou hodnotu a nasledne prenastavi data zpet na null.
  *
