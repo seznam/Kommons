@@ -171,8 +171,9 @@ inline fun startUiCountdown(interval: Long,
 														timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
 														crossinline callback: () -> Unit): Disposable {
 	return Flowable.timer(interval, timeUnit)
+			.subscribeOn(Rx.schedulers.computation())
 			.onBackpressureLatest()
-			.observeOn(AndroidSchedulers.mainThread())
+			.observeOn(Rx.schedulers.mainThread())
 			.safeSubscribe({ callback() }, {}, {})
 }
 
