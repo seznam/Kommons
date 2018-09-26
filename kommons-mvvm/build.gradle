@@ -29,7 +29,6 @@ android {
 }
 
 dependencies {
-//    kapt "com.android.databinding:compiler:$kommons_androidGradleVersion"
     kapt "android.arch.lifecycle:compiler:$kommons_archComponentsVersion"
 
     implementation "com.android.support:support-v4:$kommons_supportLibsVersion"
