@@ -52,7 +52,7 @@ fun TextView.setDrawableLeft(drawableRes: Int,
 																																			true), null, null, null)
 }
 
-fun TextView.setDrawableLeft(drawable: Drawable) = setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+fun TextView.setDrawableLeft(drawable: Drawable?) = setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
 
 fun TextView.setText(@StringRes resId: Int, vararg args: Any) {
 	text = context.getString(resId, *args)
