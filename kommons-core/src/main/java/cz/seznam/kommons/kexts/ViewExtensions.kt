@@ -3,6 +3,7 @@ package cz.seznam.kommons.kexts
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.support.annotation.DimenRes
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
@@ -165,3 +166,5 @@ var View.leftMargin: Int
 		lp.leftMargin = value
 		requestLayout()
 	}
+
+fun View.pixelSizeOf(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
