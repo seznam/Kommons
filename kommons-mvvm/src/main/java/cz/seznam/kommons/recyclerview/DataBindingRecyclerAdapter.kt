@@ -17,6 +17,9 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(context: Conte
 																																	itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()) :
 		ListAdapter<T, ViewDataBindingHolder<H>>(itemCallbacks) {
 	private val data = ArrayList<T>()
+
+	val items: List<T> = data
+
 	val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
 	open fun clear() {
