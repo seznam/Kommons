@@ -3,7 +3,10 @@ package cz.seznam.kommons.app
 import android.arch.lifecycle.Lifecycle
 import java.lang.ref.WeakReference
 
-/**
+/** Guarded action which depends on lifecycle.
+ *
+ * Action is invokable, if current lifecycle state is at least resumed.
+ *
  * @author Jakub Janda
  */
 class LifecycleGuardedVoidAction(lifecycle: Lifecycle,

@@ -6,10 +6,12 @@ import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 
-/**
+/** Add on text change callback to EditText view.
+ *
+ * @param listener callback which is called when text is changed
+ *
  * @author Jakub Janda
  */
-
 inline fun EditText.onTextChanged(crossinline listener: (query: String) -> Unit) = addTextChangedListener(object : TextWatcher {
 	override fun afterTextChanged(s: Editable?) = Unit
 
@@ -24,6 +26,9 @@ inline fun EditText.onTextChanged(crossinline listener: (query: String) -> Unit)
 														 count: Int) = listener(s.toString())
 })
 
+/** Show soft input for this edit text.
+ *
+ */
 fun EditText.openKeyboard() {
 	val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 	imm.showSoftInput(this, 0)

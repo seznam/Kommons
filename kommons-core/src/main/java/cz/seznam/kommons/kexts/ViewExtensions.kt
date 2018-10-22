@@ -9,22 +9,26 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import cz.seznam.kommons.R
 
-/**
- * @author Jakub Janda
+/** View is Visible or Gone
  */
-
 var View.visible: Boolean
 	get() = visibility == View.VISIBLE
 	set(value) {
 		visibility = if (value) View.VISIBLE else View.GONE
 	}
 
+/** View is Invisible or Visible.
+ */
 var View.invisible: Boolean
 	get() = visibility == View.INVISIBLE
 	set(value) {
 		visibility = if (value) View.INVISIBLE else View.VISIBLE
 	}
 
+/** View scale.
+ *
+ * Setter sets both scaleX and scaleY, getter gives scaleX.
+ */
 var View.scale: Float
 	get() = scaleX
 	set(value) {
@@ -32,12 +36,28 @@ var View.scale: Float
 		scaleY = value
 	}
 
+/** Return if view is visible.
+ *
+ * @return true if View.visibility == View.VISIBLE
+ */
 fun View.isVisible(): Boolean = visibility == View.VISIBLE
 
+/** Return if view is invisible.
+ *
+ * @return true if View.visibility == View.INVISIBLE
+ */
 fun View.isInvisible(): Boolean = visibility == View.INVISIBLE
 
+/** Return if view is gone.
+ *
+ * @return true if View.visibility == View.GONE
+ */
 fun View.isGone(): Boolean = visibility == View.GONE
 
+/** Run single onPreDraw callback.
+ *
+ * @param callback callback when onPreDraw is called
+ */
 fun View.onSinglePreDraw(callback: () -> Unit) {
 	val view = this
 	viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
@@ -49,21 +69,61 @@ fun View.onSinglePreDraw(callback: () -> Unit) {
 	})
 }
 
+/** Create animator of View.translationX and associate it with the view.
+ *
+ * Animator is saved as tag to the view.
+ * Old associated animator is canceled.
+ *
+ * @param from start value, default is current translationX
+ * @param to end value
+ *
+ * @return animator
+ */
 fun View.animTranslationX(from: Float = translationX,
 													to: Float): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this,
 																																															 "translationX",
 																																															 from,
 																																															 to))
 
+/** Create animator of View.translationY and associate it with the view.
+ *
+ * Animator is saved as tag to the view.
+ * Old associated animator is canceled.
+ *
+ * @param from start value, default is current translationY
+ * @param to end value
+ *
+ * @return animator
+ */
 fun View.animTranslationY(from: Float = translationY,
 													to: Float): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this,
 																																															 "translationY",
 																																															 from,
 																																															 to))
 
+/** Create animator of View.alpha and associate it with the view.
+ *
+ * Animator is saved as tag to the view.
+ * Old associated animator is canceled.
+ *
+ * @param from start value, default is current alpha
+ * @param to end value
+ *
+ * @return animator
+ */
 fun View.animAlpha(from: Float = alpha,
 									 to: Float): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this, "alpha", from, to))
 
+/** Create animator of View.scaleX and View.scaleY and associate it with the view.
+ *
+ * Animator is saved as tag to the view.
+ * Old associated animator is canceled.
+ *
+ * @param from start value, default is current scaleX
+ * @param to end value
+ *
+ * @return animator
+ */
 fun View.animateScale(from: Float = scale,
 											to: Float): Animator {
 
