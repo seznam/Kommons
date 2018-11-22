@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion compileVersion
+    compileSdkVersion kommons_compileVersion
 
     defaultConfig {
         applicationId "cz.seznam.kommons.examples"
         minSdkVersion 16
-        targetSdkVersion targetVersion
+        targetSdkVersion kommons_targetVersion
         versionCode 1
         versionName "1.0"
     }
@@ -26,14 +26,14 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    kapt "com.android.databinding:compiler:$androidGradleVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kommons_kotlinVersion"
+    kapt "com.android.databinding:compiler:$kommons_androidGradleVersion"
 
-    implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
-    kapt "android.arch.lifecycle:compiler:$archComponentsVersion"
+    implementation "android.arch.lifecycle:extensions:$kommons_archComponentsVersion"
+    kapt "android.arch.lifecycle:compiler:$kommons_archComponentsVersion"
 
-    implementation "com.android.support:support-v4:$supportLibsVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibsVersion"
+    implementation "com.android.support:support-v4:$kommons_supportLibsVersion"
+    implementation "com.android.support:appcompat-v7:$kommons_supportLibsVersion"
     implementation "com.android.support.constraint:constraint-layout:1.1.2"
 
     implementation project(':kommons-core')
