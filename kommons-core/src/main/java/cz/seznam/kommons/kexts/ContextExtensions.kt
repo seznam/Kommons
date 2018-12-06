@@ -1,3 +1,4 @@
+
 package cz.seznam.kommons.kexts
 
 import android.content.Context
@@ -34,7 +35,7 @@ fun Context.showToast(message: Int, duration: Int = Toast.LENGTH_SHORT) {
  *
  * @return dimenion in pixels
  */
-fun Context.pixelSizeOf(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
+fun Context.px(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
 
 /** Start service in foreground.
  *
