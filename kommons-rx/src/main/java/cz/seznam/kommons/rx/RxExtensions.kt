@@ -56,7 +56,7 @@ fun Completable.obsOnUI(): Completable = this.observeOn(Rx.schedulers.mainThread
 
 
 fun <T : Any> Observable<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
-	return safeSubscribe(onSuccess, Rx.defaultErrorHandler, null)
+    return safeSubscribe(onSuccess, Rx.defaultErrorHandler, null)
 }
 
 /** Subscribes observable and guard callbacks from call after unsubscribe is called.
@@ -64,25 +64,25 @@ fun <T : Any> Observable<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
  * @return disposable
  */
 fun <T : Any> Observable<T>.safeSubscribe(
-	onSuccess: (T) -> Unit,
-	onError: (Throwable) -> Unit,
-	onComplete: (() -> Unit)? = null
-																				 ): Disposable {
-	val subscriptionLock = Object()
-	var subscriptionActive = true
+    onSuccess: (T) -> Unit,
+    onError: (Throwable) -> Unit,
+    onComplete: (() -> Unit)? = null
+                                         ): Disposable {
+    val subscriptionLock = Object()
+    var subscriptionActive = true
 
-	return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onSuccess(it)) } },
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } },
-		{
-			if (onComplete != null) {
-				synchronized(subscriptionLock) { if (subscriptionActive) (onComplete()) }
-			}
-		})
+    return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onSuccess(it)) } },
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } },
+        {
+            if (onComplete != null) {
+                synchronized(subscriptionLock) { if (subscriptionActive) (onComplete()) }
+            }
+        })
 }
 
 fun <T : Any> Single<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
-	return safeSubscribe(onSuccess, onError = Rx.defaultErrorHandler)
+    return safeSubscribe(onSuccess, onError = Rx.defaultErrorHandler)
 }
 
 /** Subscribes observable and guard callbacks from call after unsubscribe is called.
@@ -90,31 +90,31 @@ fun <T : Any> Single<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
  * @return disposable
  */
 fun <T : Any> Single<T>.safeSubscribe(
-	onSuccess: (T) -> Unit,
-	onError: (Throwable) -> Unit
-																		 ): Disposable {
-	val subscriptionLock = Object()
-	var subscriptionActive = true
+    onSuccess: (T) -> Unit,
+    onError: (Throwable) -> Unit
+                                     ): Disposable {
+    val subscriptionLock = Object()
+    var subscriptionActive = true
 
-	return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onSuccess(it)) } },
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } })
+    return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onSuccess(it)) } },
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } })
 }
 
 inline fun Completable.safeSubscribe(crossinline onComplete: () -> Unit = {}): Disposable {
-	return safeSubscribe(onComplete, onError = Rx.defaultErrorHandler)
+    return safeSubscribe(onComplete, onError = Rx.defaultErrorHandler)
 }
 
 inline fun Completable.safeSubscribe(
-	crossinline onComplete: () -> Unit = {},
-	crossinline onError: (Throwable) -> Unit
-																		): Disposable {
-	val subscriptionLock = Object()
-	var subscriptionActive = true
+    crossinline onComplete: () -> Unit = {},
+    crossinline onError: (Throwable) -> Unit
+                                    ): Disposable {
+    val subscriptionLock = Object()
+    var subscriptionActive = true
 
-	return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onComplete()) } },
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } })
+    return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onComplete()) } },
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } })
 }
 
 
@@ -123,21 +123,21 @@ inline fun Completable.safeSubscribe(
  * @return disposable
  */
 fun <T : Any> Flowable<T>.safeSubscribe(
-	onNext: (T) -> Unit,
-	onError: (Throwable) -> Unit = Rx.defaultErrorHandler,
-	onComplete: (() -> Unit)? = null
-																			 ): Disposable {
-	val subscriptionLock = Object()
-	var subscriptionActive = true
+    onNext: (T) -> Unit,
+    onError: (Throwable) -> Unit = Rx.defaultErrorHandler,
+    onComplete: (() -> Unit)? = null
+                                       ): Disposable {
+    val subscriptionLock = Object()
+    var subscriptionActive = true
 
-	return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onNext(it)) } },
-		{ synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } },
-		{
-			if (onComplete != null) {
-				synchronized(subscriptionLock) { if (subscriptionActive) (onComplete()) }
-			}
-		})
+    return this.doFinally { synchronized(subscriptionLock) { subscriptionActive = false } }.subscribe(
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onNext(it)) } },
+        { synchronized(subscriptionLock) { if (subscriptionActive) (onError(it)) } },
+        {
+            if (onComplete != null) {
+                synchronized(subscriptionLock) { if (subscriptionActive) (onComplete()) }
+            }
+        })
 }
 
 /** Creates Observable.interval and subscribe it with safeSubscribe.
@@ -149,13 +149,13 @@ fun <T : Any> Flowable<T>.safeSubscribe(
  * @param callback callback which is called in interval
  */
 inline fun startTimer(
-	interval: Long,
-	timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
-	crossinline callback: () -> Unit
-										 ): Disposable = Flowable.interval(interval, timeUnit)
-	.onBackpressureLatest()
-	.subsOnComputation()
-	.safeSubscribe({ callback() }, {}, {})
+    interval: Long,
+    timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
+    crossinline callback: () -> Unit
+                     ): Disposable = Flowable.interval(interval, timeUnit)
+    .onBackpressureLatest()
+    .subsOnComputation()
+    .safeSubscribe({ callback() }, {}, {})
 
 /** Creates Observable.interval and subscribe it with safeSubscribe on main thread.
  *
@@ -165,13 +165,13 @@ inline fun startTimer(
  * @param callback callback which is called in interval
  */
 inline fun startUiTimer(
-	interval: Long,
-	timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
-	crossinline callback: () -> Unit
-											 ): Disposable = Flowable.interval(interval, timeUnit)
-	.observeOn(AndroidSchedulers.mainThread())
-	.onBackpressureLatest()
-	.safeSubscribe({ callback() }, {}, {})
+    interval: Long,
+    timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
+    crossinline callback: () -> Unit
+                       ): Disposable = Flowable.interval(interval, timeUnit)
+    .observeOn(AndroidSchedulers.mainThread())
+    .onBackpressureLatest()
+    .safeSubscribe({ callback() }, {}, {})
 
 /** Creates Observable.timer and subscribes it with safeSubscribe on main thread.
  *
@@ -180,20 +180,20 @@ inline fun startUiTimer(
  * @param callback callback which is called after interval
  */
 inline fun startUiCountdown(
-	interval: Long,
-	timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
-	crossinline callback: () -> Unit
-													 ): Disposable {
-	return Flowable.timer(interval, timeUnit)
-		.subscribeOn(Rx.schedulers.computation())
-		.onBackpressureLatest()
-		.observeOn(Rx.schedulers.mainThread())
-		.safeSubscribe({ callback() }, {}, {})
+    interval: Long,
+    timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
+    crossinline callback: () -> Unit
+                           ): Disposable {
+    return Flowable.timer(interval, timeUnit)
+        .subscribeOn(Rx.schedulers.computation())
+        .onBackpressureLatest()
+        .observeOn(Rx.schedulers.mainThread())
+        .safeSubscribe({ callback() }, {}, {})
 }
 
 val Disposable.isNotDisposed: Boolean
-	get() = !this.isDisposed
+    get() = !this.isDisposed
 
 operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
-	add(disposable)
+    add(disposable)
 }

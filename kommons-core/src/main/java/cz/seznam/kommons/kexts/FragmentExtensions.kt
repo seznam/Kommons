@@ -20,9 +20,9 @@ import android.os.Bundle
  * @author Jakub Janda
  */
 fun <T : androidx.fragment.app.Fragment> T.withArgs(applyArgs: Bundle.() -> Unit): T {
-	val args = Bundle()
-	applyArgs(args)
-	this.arguments = args
+    val args = Bundle()
+    applyArgs(args)
+    this.arguments = args
 
-	return this
+    return this
 }

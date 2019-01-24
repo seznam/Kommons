@@ -12,29 +12,29 @@ import cz.seznam.kommons.R
 /** View is Visible or Gone
  */
 var View.visible: Boolean
-	get() = visibility == View.VISIBLE
-	set(value) {
-		visibility = if (value) View.VISIBLE else View.GONE
-	}
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }
 
 /** View is Invisible or Visible.
  */
 var View.invisible: Boolean
-	get() = visibility == View.INVISIBLE
-	set(value) {
-		visibility = if (value) View.INVISIBLE else View.VISIBLE
-	}
+    get() = visibility == View.INVISIBLE
+    set(value) {
+        visibility = if (value) View.INVISIBLE else View.VISIBLE
+    }
 
 /** View scale.
  *
  * Setter sets both scaleX and scaleY, getter gives scaleX.
  */
 var View.scale: Float
-	get() = scaleX
-	set(value) {
-		scaleX = value
-		scaleY = value
-	}
+    get() = scaleX
+    set(value) {
+        scaleX = value
+        scaleY = value
+    }
 
 /** Return if view is visible.
  *
@@ -59,14 +59,14 @@ fun View.isGone(): Boolean = visibility == View.GONE
  * @param callback callback when onPreDraw is called
  */
 fun View.onSinglePreDraw(callback: () -> Unit) {
-	val view = this
-	viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-		override fun onPreDraw(): Boolean {
-			callback.invoke()
-			view.viewTreeObserver.removeOnPreDrawListener(this)
-			return false
-		}
-	})
+    val view = this
+    viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+        override fun onPreDraw(): Boolean {
+            callback.invoke()
+            view.viewTreeObserver.removeOnPreDrawListener(this)
+            return false
+        }
+    })
 }
 
 /** Create animator of View.translationX and associate it with the view.
@@ -80,16 +80,16 @@ fun View.onSinglePreDraw(callback: () -> Unit) {
  * @return animator
  */
 fun View.animTranslationX(
-	from: Float = translationX,
-	to: Float
-												 ): Animator = setViewAnimation(
-	this, ObjectAnimator.ofFloat(
-		this,
-		"translationX",
-		from,
-		to
-															)
-																											 )
+    from: Float = translationX,
+    to: Float
+                         ): Animator = setViewAnimation(
+    this, ObjectAnimator.ofFloat(
+        this,
+        "translationX",
+        from,
+        to
+                                )
+                                                       )
 
 /** Create animator of View.translationY and associate it with the view.
  *
@@ -102,16 +102,16 @@ fun View.animTranslationX(
  * @return animator
  */
 fun View.animTranslationY(
-	from: Float = translationY,
-	to: Float
-												 ): Animator = setViewAnimation(
-	this, ObjectAnimator.ofFloat(
-		this,
-		"translationY",
-		from,
-		to
-															)
-																											 )
+    from: Float = translationY,
+    to: Float
+                         ): Animator = setViewAnimation(
+    this, ObjectAnimator.ofFloat(
+        this,
+        "translationY",
+        from,
+        to
+                                )
+                                                       )
 
 /** Create animator of View.alpha and associate it with the view.
  *
@@ -124,9 +124,9 @@ fun View.animTranslationY(
  * @return animator
  */
 fun View.animAlpha(
-	from: Float = alpha,
-	to: Float
-									): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this, "alpha", from, to))
+    from: Float = alpha,
+    to: Float
+                  ): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this, "alpha", from, to))
 
 /** Create animator of View.scaleX and View.scaleY and associate it with the view.
  *
@@ -139,74 +139,74 @@ fun View.animAlpha(
  * @return animator
  */
 fun View.animateScale(
-	from: Float = scale,
-	to: Float
-										 ): Animator {
+    from: Float = scale,
+    to: Float
+                     ): Animator {
 
-	val anim = AnimatorSet()
-	anim.playTogether(
-		ObjectAnimator.ofFloat(this, "scaleX", from, to),
-		ObjectAnimator.ofFloat(this, "scaleY", from, to)
-									 )
+    val anim = AnimatorSet()
+    anim.playTogether(
+        ObjectAnimator.ofFloat(this, "scaleX", from, to),
+        ObjectAnimator.ofFloat(this, "scaleY", from, to)
+                     )
 
-	return setViewAnimation(this, anim)
+    return setViewAnimation(this, anim)
 }
 
 
 fun View.createTranslationX(from: Float = this.translationX, to: Float): Animator = ObjectAnimator.ofFloat(
-	this,
-	"translationX",
-	from,
-	to
-																																																					)
+    this,
+    "translationX",
+    from,
+    to
+                                                                                                          )
 
 fun View.createAnimTransY(from: Float = this.translationY, to: Float): Animator = ObjectAnimator.ofFloat(
-	this,
-	"translationY",
-	from,
-	to
-																																																				)
+    this,
+    "translationY",
+    from,
+    to
+                                                                                                        )
 
 fun View.createAlphaAnim(from: Float = this.alpha, to: Float): Animator = ObjectAnimator.ofFloat(
-	this,
-	"alpha",
-	from,
-	to
-																																																)
+    this,
+    "alpha",
+    from,
+    to
+                                                                                                )
 
 fun View.createScaleAnim(from: Float = this.scale, to: Float): Animator {
 
-	val anim = AnimatorSet()
-	anim.playTogether(
-		ObjectAnimator.ofFloat(this, "scaleX", from, to),
-		ObjectAnimator.ofFloat(this, "scaleY", from, to)
-									 )
+    val anim = AnimatorSet()
+    anim.playTogether(
+        ObjectAnimator.ofFloat(this, "scaleX", from, to),
+        ObjectAnimator.ofFloat(this, "scaleY", from, to)
+                     )
 
-	return anim
+    return anim
 }
 
 fun View.createRotateAnim(from: Float = this.rotation, to: Float): Animator = ObjectAnimator.ofFloat(
-	this,
-	"rotation",
-	from,
-	to
-																																																		)
+    this,
+    "rotation",
+    from,
+    to
+                                                                                                    )
 
 fun View.clearAnim() {
-	val oldAnim = getTag(R.id.view_animator) as? Animator?
-	oldAnim?.cancel()
+    val oldAnim = getTag(R.id.view_animator) as? Animator?
+    oldAnim?.cancel()
 }
 
 private fun setViewAnimation(
-	view: View,
-	animator: Animator
-														): Animator {
-	val oldAnim = view.getTag(R.id.view_animator) as? Animator?
-	oldAnim?.cancel()
-	(view.getTag(R.id.view_animator) as? Animator?)?.cancel()
-	view.setTag(R.id.view_animator, animator)
-	animator.onEnd { view.setTag(R.id.view_animator, null) }
-	return animator
+    view: View,
+    animator: Animator
+                            ): Animator {
+    val oldAnim = view.getTag(R.id.view_animator) as? Animator?
+    oldAnim?.cancel()
+    (view.getTag(R.id.view_animator) as? Animator?)?.cancel()
+    view.setTag(R.id.view_animator, animator)
+    animator.onEnd { view.setTag(R.id.view_animator, null) }
+    return animator
 }
 
 fun View.setPaddingLeft(padding: Int) = setPadding(padding, paddingTop, paddingRight, paddingBottom)
@@ -214,47 +214,47 @@ fun View.setPaddingLeft(padding: Int) = setPadding(padding, paddingTop, paddingR
 fun View.setPaddingTop(padding: Int) = setPadding(paddingLeft, padding, paddingRight, paddingBottom)
 
 var View.topMargin: Int
-	get() {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		return lp.topMargin
-	}
-	set(value) {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		lp.topMargin = value
-		requestLayout()
-	}
+    get() {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        return lp.topMargin
+    }
+    set(value) {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        lp.topMargin = value
+        requestLayout()
+    }
 
 var View.bottomMargin: Int
-	get() {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		return lp.bottomMargin
-	}
-	set(value) {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		lp.bottomMargin = value
-		requestLayout()
-	}
+    get() {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        return lp.bottomMargin
+    }
+    set(value) {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        lp.bottomMargin = value
+        requestLayout()
+    }
 
 var View.rightMargin: Int
-	get() {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		return lp.rightMargin
-	}
-	set(value) {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		lp.rightMargin = value
-		requestLayout()
-	}
+    get() {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        return lp.rightMargin
+    }
+    set(value) {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        lp.rightMargin = value
+        requestLayout()
+    }
 
 var View.leftMargin: Int
-	get() {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		return lp.leftMargin
-	}
-	set(value) {
-		val lp = layoutParams as ViewGroup.MarginLayoutParams
-		lp.leftMargin = value
-		requestLayout()
-	}
+    get() {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        return lp.leftMargin
+    }
+    set(value) {
+        val lp = layoutParams as ViewGroup.MarginLayoutParams
+        lp.leftMargin = value
+        requestLayout()
+    }
 
 fun View.pixelSizeOf(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)

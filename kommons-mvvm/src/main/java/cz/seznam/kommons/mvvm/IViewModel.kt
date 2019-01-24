@@ -7,7 +7,7 @@ package cz.seznam.kommons.mvvm
  * @author Jakub Janda
  */
 interface IViewModel {
-	fun onBind() {}
+    fun onBind() {}
 
-	fun onUnbind() {}
+    fun onUnbind() {}
 }
