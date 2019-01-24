@@ -1,7 +1,6 @@
 package cz.seznam.kommons.kexts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 
 /** Set arguments for this fragment instance.
  *

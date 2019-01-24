@@ -3,10 +3,10 @@ package cz.seznam.kommons.kexts
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import androidx.annotation.DimenRes
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.annotation.DimenRes
 import cz.seznam.kommons.R
 
 /** View is Visible or Gone
@@ -79,11 +79,17 @@ fun View.onSinglePreDraw(callback: () -> Unit) {
  *
  * @return animator
  */
-fun View.animTranslationX(from: Float = translationX,
-													to: Float): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this,
-																																															 "translationX",
-																																															 from,
-																																															 to))
+fun View.animTranslationX(
+	from: Float = translationX,
+	to: Float
+												 ): Animator = setViewAnimation(
+	this, ObjectAnimator.ofFloat(
+		this,
+		"translationX",
+		from,
+		to
+															)
+																											 )
 
 /** Create animator of View.translationY and associate it with the view.
  *
@@ -95,11 +101,17 @@ fun View.animTranslationX(from: Float = translationX,
  *
  * @return animator
  */
-fun View.animTranslationY(from: Float = translationY,
-													to: Float): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this,
-																																															 "translationY",
-																																															 from,
-																																															 to))
+fun View.animTranslationY(
+	from: Float = translationY,
+	to: Float
+												 ): Animator = setViewAnimation(
+	this, ObjectAnimator.ofFloat(
+		this,
+		"translationY",
+		from,
+		to
+															)
+																											 )
 
 /** Create animator of View.alpha and associate it with the view.
  *
@@ -111,8 +123,10 @@ fun View.animTranslationY(from: Float = translationY,
  *
  * @return animator
  */
-fun View.animAlpha(from: Float = alpha,
-									 to: Float): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this, "alpha", from, to))
+fun View.animAlpha(
+	from: Float = alpha,
+	to: Float
+									): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this, "alpha", from, to))
 
 /** Create animator of View.scaleX and View.scaleY and associate it with the view.
  *
@@ -124,53 +138,69 @@ fun View.animAlpha(from: Float = alpha,
  *
  * @return animator
  */
-fun View.animateScale(from: Float = scale,
-											to: Float): Animator {
+fun View.animateScale(
+	from: Float = scale,
+	to: Float
+										 ): Animator {
 
 	val anim = AnimatorSet()
-	anim.playTogether(ObjectAnimator.ofFloat(this, "scaleX", from, to),
-										ObjectAnimator.ofFloat(this, "scaleY", from, to))
+	anim.playTogether(
+		ObjectAnimator.ofFloat(this, "scaleX", from, to),
+		ObjectAnimator.ofFloat(this, "scaleY", from, to)
+									 )
 
 	return setViewAnimation(this, anim)
 }
 
 
-fun View.createTranslationX(from: Float = this.translationX, to: Float): Animator = ObjectAnimator.ofFloat(this,
-																																																					 "translationX",
-																																																					 from,
-																																																					 to)
+fun View.createTranslationX(from: Float = this.translationX, to: Float): Animator = ObjectAnimator.ofFloat(
+	this,
+	"translationX",
+	from,
+	to
+																																																					)
 
-fun View.createAnimTransY(from: Float = this.translationY, to: Float): Animator = ObjectAnimator.ofFloat(this,
-																																																				 "translationY",
-																																																				 from,
-																																																				 to)
+fun View.createAnimTransY(from: Float = this.translationY, to: Float): Animator = ObjectAnimator.ofFloat(
+	this,
+	"translationY",
+	from,
+	to
+																																																				)
 
-fun View.createAlphaAnim(from: Float = this.alpha, to: Float): Animator = ObjectAnimator.ofFloat(this,
-																																																 "alpha",
-																																																 from,
-																																																 to)
+fun View.createAlphaAnim(from: Float = this.alpha, to: Float): Animator = ObjectAnimator.ofFloat(
+	this,
+	"alpha",
+	from,
+	to
+																																																)
 
 fun View.createScaleAnim(from: Float = this.scale, to: Float): Animator {
 
 	val anim = AnimatorSet()
-	anim.playTogether(ObjectAnimator.ofFloat(this, "scaleX", from, to),
-										ObjectAnimator.ofFloat(this, "scaleY", from, to))
+	anim.playTogether(
+		ObjectAnimator.ofFloat(this, "scaleX", from, to),
+		ObjectAnimator.ofFloat(this, "scaleY", from, to)
+									 )
 
 	return anim
 }
 
-fun View.createRotateAnim(from: Float = this.rotation, to: Float): Animator = ObjectAnimator.ofFloat(this,
-																																																		 "rotation",
-																																																		 from,
-																																																		 to)
+fun View.createRotateAnim(from: Float = this.rotation, to: Float): Animator = ObjectAnimator.ofFloat(
+	this,
+	"rotation",
+	from,
+	to
+																																																		)
 
 fun View.clearAnim() {
 	val oldAnim = getTag(R.id.view_animator) as? Animator?
 	oldAnim?.cancel()
 }
 
-private fun setViewAnimation(view: View,
-														 animator: Animator): Animator {
+private fun setViewAnimation(
+	view: View,
+	animator: Animator
+														): Animator {
 	val oldAnim = view.getTag(R.id.view_animator) as? Animator?
 	oldAnim?.cancel()
 	(view.getTag(R.id.view_animator) as? Animator?)?.cancel()

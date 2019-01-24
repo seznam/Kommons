@@ -9,8 +9,10 @@ import java.lang.ref.WeakReference
  *
  * @author Jakub Janda
  */
-class LifecycleGuardedAction<P>(lifecycle: Lifecycle,
-																action: (P) -> Unit) : GuardedAction<P>(action) {
+class LifecycleGuardedAction<P>(
+	lifecycle: Lifecycle,
+	action: (P) -> Unit
+															 ) : GuardedAction<P>(action) {
 	private val lifecycleRef = WeakReference(lifecycle)
 
 	override fun isInvokable(): Boolean {

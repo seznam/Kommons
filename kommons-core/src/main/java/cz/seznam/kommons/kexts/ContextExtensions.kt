@@ -3,8 +3,8 @@ package cz.seznam.kommons.kexts
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.annotation.DimenRes
 import android.widget.Toast
+import androidx.annotation.DimenRes
 
 /** Shows Toast message.
  *

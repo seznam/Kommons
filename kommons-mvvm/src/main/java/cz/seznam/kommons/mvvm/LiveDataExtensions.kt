@@ -7,8 +7,10 @@ import kotlin.reflect.KMutableProperty0
  * @author Jakub Janda
  */
 
-fun <T : Any?> LiveData<T>.observe(owner: LifecycleOwner,
-																	 callback: (value: T?) -> Unit) = observe(owner, androidx.lifecycle.Observer {
+fun <T : Any?> LiveData<T>.observe(
+	owner: LifecycleOwner,
+	callback: (value: T?) -> Unit
+																	) = observe(owner, androidx.lifecycle.Observer {
 	callback.invoke(it)
 })
 

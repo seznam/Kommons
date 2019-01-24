@@ -1,9 +1,9 @@
 package cz.seznam.kommons.mvvm
 
-import androidx.lifecycle.LifecycleOwner
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 
 /** Base interface for implementig views by MVVM pattern.
  *
@@ -22,8 +22,10 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
 	 *
 	 * @return your view
 	 */
-	fun createView(inflater: LayoutInflater,
-								 parent: ViewGroup?): View
+	fun createView(
+		inflater: LayoutInflater,
+		parent: ViewGroup?
+								): View
 
 	/** Binds model to your view.
 	 *
@@ -33,9 +35,11 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
 	 * @param viewModel model for your view
 	 * @param lifecycleOwner lifecycle owner you can use for observing livedata from your model
 	 */
-	fun bind(viewModel: T,
-					 viewActions: A?,
-					 lifecycleOwner: LifecycleOwner)
+	fun bind(
+		viewModel: T,
+		viewActions: A?,
+		lifecycleOwner: LifecycleOwner
+					)
 
 	/** Unbinds model from your view.
 	 *

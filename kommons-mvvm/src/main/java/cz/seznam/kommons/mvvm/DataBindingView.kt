@@ -14,7 +14,7 @@ import kotlin.reflect.KMutableProperty0
  * @author Jakub Janda
  */
 open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions>(private val viewRes: Int) :
-		IBindableView<T, A> {
+	IBindableView<T, A> {
 	var viewBinding: V? = null
 	var viewActions: A? = null
 	var viewModel: T? = null
