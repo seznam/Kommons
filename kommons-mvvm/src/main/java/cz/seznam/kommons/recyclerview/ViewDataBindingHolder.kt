@@ -1,9 +1,9 @@
 package cz.seznam.kommons.recyclerview
 
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
 
 /**
  * @author Jakub Janda
  */
-class ViewDataBindingHolder<out T : ViewDataBinding>(val viewBinding: T) : RecyclerView.ViewHolder(viewBinding.root)
+class ViewDataBindingHolder<out T : ViewDataBinding>(val viewBinding: T) :
+	androidx.recyclerview.widget.RecyclerView.ViewHolder(viewBinding.root)

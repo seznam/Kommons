@@ -1,10 +1,10 @@
 package cz.seznam.kommons.mvvm
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
 /** Base fragment for implementing Views by Model View ViewModel pattern.
  *
@@ -20,9 +20,11 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
 
 	abstract val viewActions: A?
 
-	override fun onCreateView(inflater: LayoutInflater,
-														container: ViewGroup?,
-														savedInstanceState: Bundle?): View? {
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+													 ): View? {
 		val view = view
 		val viewModel = viewModel
 

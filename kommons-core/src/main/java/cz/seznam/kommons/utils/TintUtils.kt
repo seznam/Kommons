@@ -3,10 +3,10 @@ package cz.seznam.kommons.utils
 import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 
 /**
  * @author Jakub Janda
@@ -29,10 +29,12 @@ object TintUtils {
 	 * @return obarveny drawable
 	 */
 	@JvmOverloads
-	fun getTintedDrawable(context: Context,
-												@DrawableRes iconRes: Int,
-												@ColorRes colorRes: Int,
-												copy: Boolean = false): Drawable {
+	fun getTintedDrawable(
+		context: Context,
+		@DrawableRes iconRes: Int,
+		@ColorRes colorRes: Int,
+		copy: Boolean = false
+											 ): Drawable {
 		val res = context.resources
 		val color = res.getColor(colorRes)
 
@@ -54,10 +56,12 @@ object TintUtils {
 	 *
 	 * @return obarveny drawable
 	 */
-	fun getTintedDrawableByColor(context: Context,
-															 @DrawableRes iconRes: Int,
-															 @ColorInt colorValue: Int,
-															 copy: Boolean): Drawable {
+	fun getTintedDrawableByColor(
+		context: Context,
+		@DrawableRes iconRes: Int,
+		@ColorInt colorValue: Int,
+		copy: Boolean
+															): Drawable {
 		var drawable = ContextCompat.getDrawable(context, iconRes)
 
 		if (copy) {
@@ -69,10 +73,12 @@ object TintUtils {
 		return drawable
 	}
 
-	fun getTintedDrawable(context: Context,
-												drawable: Drawable,
-												@ColorRes colorRes: Int,
-												copy: Boolean): Drawable {
+	fun getTintedDrawable(
+		context: Context,
+		drawable: Drawable,
+		@ColorRes colorRes: Int,
+		copy: Boolean
+											 ): Drawable {
 		var drawable = drawable
 		val res = context.resources
 		val color = res.getColor(colorRes)
@@ -86,9 +92,11 @@ object TintUtils {
 		return drawable
 	}
 
-	fun getTintedDrawableByColor(drawable: Drawable,
-															 @ColorInt color: Int,
-															 copy: Boolean): Drawable {
+	fun getTintedDrawableByColor(
+		drawable: Drawable,
+		@ColorInt color: Int,
+		copy: Boolean
+															): Drawable {
 		var drawable = drawable
 		if (copy) {
 			drawable = drawable.mutate()

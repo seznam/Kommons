@@ -29,13 +29,13 @@ android {
 }
 
 dependencies {
-    kapt "android.arch.lifecycle:compiler:$kommons_archComponentsVersion"
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
 
-    implementation "com.android.support:support-v4:$kommons_supportLibsVersion"
-    implementation "com.android.support:appcompat-v7:$kommons_supportLibsVersion"
-    implementation "com.android.support:recyclerview-v7:$kommons_supportLibsVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
-    implementation "android.arch.lifecycle:extensions:$kommons_archComponentsVersion"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kommons_kotlinVersion"
 }
 repositories {

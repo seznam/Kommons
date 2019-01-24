@@ -1,21 +1,23 @@
 package cz.seznam.kommons.recyclerview
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import cz.seznam.kommons.mvvm.BR
 import cz.seznam.kommons.mvvm.IViewActions
 
 /**
  * @author Jakub Janda
  */
-abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(context: Context,
-																																	itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()) :
-		ListAdapter<T, ViewDataBindingHolder<H>>(itemCallbacks) {
+abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(
+	context: Context,
+	itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()
+																																 ) :
+	ListAdapter<T, ViewDataBindingHolder<H>>(itemCallbacks) {
 	private val data = ArrayList<T>()
 
 	val items: List<T> = data
@@ -69,12 +71,20 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(context: Conte
 		return data.indexOf(item)
 	}
 
-	override fun onCreateViewHolder(parent: ViewGroup,
-																	viewType: Int): ViewDataBindingHolder<H> = ViewDataBindingHolder(onCreateView(parent,
-																																																								viewType))
+	override fun onCreateViewHolder(
+		parent: ViewGroup,
+		viewType: Int
+																 ): ViewDataBindingHolder<H> = ViewDataBindingHolder(
+		onCreateView(
+			parent,
+			viewType
+								)
+																																										)
 
-	open fun onCreateView(parent: ViewGroup,
-												viewType: Int): H = DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
+	open fun onCreateView(
+		parent: ViewGroup,
+		viewType: Int
+											 ): H = DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
 
 	override fun onBindViewHolder(holder: ViewDataBindingHolder<H>, position: Int) {
 		val viewModel = getItem(position)

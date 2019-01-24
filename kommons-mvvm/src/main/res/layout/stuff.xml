@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <variable name="viewModel"
-                  type="cz.seznam.kommons.mvvm.IViewModel"/>
 
-        <variable name="viewActions"
-                  type="cz.seznam.kommons.mvvm.IViewActions"/>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="cz.seznam.kommons.mvvm.IViewModel" />
+
+        <variable
+            name="viewActions"
+            type="cz.seznam.kommons.mvvm.IViewActions" />
     </data>
-    <View android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     </View>
 </layout>

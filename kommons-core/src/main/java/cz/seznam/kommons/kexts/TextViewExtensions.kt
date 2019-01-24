@@ -1,8 +1,8 @@
 package cz.seznam.kommons.kexts
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.StringRes
 import android.widget.TextView
+import androidx.annotation.StringRes
 import cz.seznam.kommons.utils.TintUtils
 
 /**
@@ -16,14 +16,20 @@ import cz.seznam.kommons.utils.TintUtils
  *
  * @author Jakub Janda
  */
-fun TextView.setDrawableTop(drawableRes: Int,
-														colorRes: Int = 0) = if (colorRes == 0) {
+fun TextView.setDrawableTop(
+	drawableRes: Int,
+	colorRes: Int = 0
+													 ) = if (colorRes == 0) {
 	setCompoundDrawablesWithIntrinsicBounds(0, drawableRes, 0, 0)
 } else {
-	setCompoundDrawablesWithIntrinsicBounds(null, TintUtils.getTintedDrawable(context,
-																																						drawableRes,
-																																						colorRes,
-																																						true), null, null)
+	setCompoundDrawablesWithIntrinsicBounds(
+		null, TintUtils.getTintedDrawable(
+			context,
+			drawableRes,
+			colorRes,
+			true
+																		 ), null, null
+																				 )
 }
 
 /** Set bottom drawable.
@@ -33,14 +39,20 @@ fun TextView.setDrawableTop(drawableRes: Int,
  *
  * @author Jakub Janda
  */
-fun TextView.setDrawableBottom(drawableRes: Int,
-															 colorRes: Int = 0) = if (colorRes == 0) {
+fun TextView.setDrawableBottom(
+	drawableRes: Int,
+	colorRes: Int = 0
+															) = if (colorRes == 0) {
 	setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, drawableRes)
 } else {
-	setCompoundDrawablesWithIntrinsicBounds(null, null, null, TintUtils.getTintedDrawable(context,
-																																												drawableRes,
-																																												colorRes,
-																																												true))
+	setCompoundDrawablesWithIntrinsicBounds(
+		null, null, null, TintUtils.getTintedDrawable(
+			context,
+			drawableRes,
+			colorRes,
+			true
+																								 )
+																				 )
 }
 
 /** Set right drawable.
@@ -50,14 +62,20 @@ fun TextView.setDrawableBottom(drawableRes: Int,
  *
  * @author Jakub Janda
  */
-fun TextView.setDrawableRight(drawableRes: Int,
-															colorRes: Int = 0) = if (colorRes == 0) {
+fun TextView.setDrawableRight(
+	drawableRes: Int,
+	colorRes: Int = 0
+														 ) = if (colorRes == 0) {
 	setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableRes, 0)
 } else {
-	setCompoundDrawablesWithIntrinsicBounds(null, null, TintUtils.getTintedDrawable(context,
-																																									drawableRes,
-																																									colorRes,
-																																									true), null)
+	setCompoundDrawablesWithIntrinsicBounds(
+		null, null, TintUtils.getTintedDrawable(
+			context,
+			drawableRes,
+			colorRes,
+			true
+																					 ), null
+																				 )
 }
 
 /** Set left drawable.
@@ -67,14 +85,20 @@ fun TextView.setDrawableRight(drawableRes: Int,
  *
  * @author Jakub Janda
  */
-fun TextView.setDrawableLeft(drawableRes: Int,
-														 colorRes: Int = 0) = if (colorRes == 0) {
+fun TextView.setDrawableLeft(
+	drawableRes: Int,
+	colorRes: Int = 0
+														) = if (colorRes == 0) {
 	setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableRes, 0)
 } else {
-	setCompoundDrawablesWithIntrinsicBounds(TintUtils.getTintedDrawable(context,
-																																			drawableRes,
-																																			colorRes,
-																																			true), null, null, null)
+	setCompoundDrawablesWithIntrinsicBounds(
+		TintUtils.getTintedDrawable(
+			context,
+			drawableRes,
+			colorRes,
+			true
+															 ), null, null, null
+																				 )
 }
 
 /** Set left drawable.
@@ -107,10 +131,12 @@ fun TextView.setDrawableRight(drawable: Drawable?) = setCompoundDrawablesWithInt
  *
  * @author Jakub Janda
  */
-fun TextView.setDrawableBottom(drawable: Drawable?) = setCompoundDrawablesWithIntrinsicBounds(null,
-																																															null,
-																																															null,
-																																															drawable)
+fun TextView.setDrawableBottom(drawable: Drawable?) = setCompoundDrawablesWithIntrinsicBounds(
+	null,
+	null,
+	null,
+	drawable
+																																														 )
 
 /** Set text with format arguments to the TextView.
  *

@@ -1,6 +1,6 @@
 package cz.seznam.kommons.app
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import java.lang.ref.WeakReference
 
 /** Guarded action which depends on lifecycle.
@@ -9,8 +9,10 @@ import java.lang.ref.WeakReference
  *
  * @author Jakub Janda
  */
-class LifecycleGuardedVoidAction(lifecycle: Lifecycle,
-																 action: () -> Unit) : GuardedVoidAction(action) {
+class LifecycleGuardedVoidAction(
+	lifecycle: Lifecycle,
+	action: () -> Unit
+																) : GuardedVoidAction(action) {
 	private val lifecycleRef = WeakReference(lifecycle)
 
 	override fun isInvokable(): Boolean {
