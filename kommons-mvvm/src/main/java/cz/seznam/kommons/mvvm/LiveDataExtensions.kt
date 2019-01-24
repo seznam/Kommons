@@ -1,6 +1,6 @@
 package cz.seznam.kommons.mvvm
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 import kotlin.reflect.KMutableProperty0
 
 /**
@@ -8,7 +8,7 @@ import kotlin.reflect.KMutableProperty0
  */
 
 fun <T : Any?> LiveData<T>.observe(owner: LifecycleOwner,
-																	 callback: (value: T?) -> Unit) = observe(owner, android.arch.lifecycle.Observer {
+																	 callback: (value: T?) -> Unit) = observe(owner, androidx.lifecycle.Observer {
 	callback.invoke(it)
 })
 

@@ -1,8 +1,8 @@
 package cz.seznam.kommons.recyclerview
 
 import android.content.Context
-import android.databinding.ViewDataBinding
-import android.support.v7.util.DiffUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
 import cz.seznam.kommons.mvvm.IViewActions
 
 /**

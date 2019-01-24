@@ -1,7 +1,7 @@
 package cz.seznam.kommons.kexts
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 /** Set arguments for this fragment instance.
  *
@@ -20,7 +20,7 @@ import android.support.v4.app.Fragment
  *
  * @author Jakub Janda
  */
-fun <T : Fragment> T.withArgs(applyArgs: Bundle.() -> Unit): T {
+fun <T : androidx.fragment.app.Fragment> T.withArgs(applyArgs: Bundle.() -> Unit): T {
 	val args = Bundle()
 	applyArgs(args)
 	this.arguments = args

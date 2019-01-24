@@ -1,7 +1,7 @@
 package cz.seznam.kommons.kexts
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.widget.TextView
 import cz.seznam.kommons.utils.TintUtils
 

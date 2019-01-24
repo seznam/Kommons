@@ -1,6 +1,6 @@
 package cz.seznam.kommons.app
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import java.lang.ref.WeakReference
 
 /** Guarded action which depends on lifecycle.

@@ -3,7 +3,7 @@ package cz.seznam.kommons.kexts
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.support.annotation.DimenRes
+import androidx.annotation.DimenRes
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
