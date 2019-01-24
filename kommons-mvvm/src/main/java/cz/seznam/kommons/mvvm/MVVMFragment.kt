@@ -14,35 +14,35 @@ import androidx.fragment.app.Fragment
  * @author Jakub Janda
  */
 abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
-	abstract val viewModel: M?
+    abstract val viewModel: M?
 
-	abstract val view: IBindableView<M, A>?
+    abstract val view: IBindableView<M, A>?
 
-	abstract val viewActions: A?
+    abstract val viewActions: A?
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-													 ): View? {
-		val view = view
-		val viewModel = viewModel
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+                             ): View? {
+        val view = view
+        val viewModel = viewModel
 
-		if (view != null && viewModel != null) {
-			val v = view.createView(inflater, container)
+        if (view != null && viewModel != null) {
+            val v = view.createView(inflater, container)
 
-			view.bind(viewModel, viewActions, this)
-			viewModel.onBind()
-			return v
-		} else {
-			return super.onCreateView(inflater, container, savedInstanceState)
-		}
-	}
+            view.bind(viewModel, viewActions, this)
+            viewModel.onBind()
+            return v
+        } else {
+            return super.onCreateView(inflater, container, savedInstanceState)
+        }
+    }
 
-	override fun onDestroyView() {
-		super.onDestroyView()
+    override fun onDestroyView() {
+        super.onDestroyView()
 
-		view?.unbind(this)
-		viewModel?.onUnbind()
-	}
+        view?.unbind(this)
+        viewModel?.onUnbind()
+    }
 }

@@ -12,31 +12,31 @@ package cz.seznam.kommons.app
  * @author Jakub Janda
  */
 abstract class GuardedAction<P>(private val action: (P) -> Unit) {
-	/** Interval after which the action can be invoked again. In millis.
-	 */
-	var invokeMinInterval = DEFAULT_MIN_INTERVAL
+    /** Interval after which the action can be invoked again. In millis.
+     */
+    var invokeMinInterval = DEFAULT_MIN_INTERVAL
 
-	private var lastInvokeTime = 0L
+    private var lastInvokeTime = 0L
 
-	/** Invokes the action, if possible.
-	 */
-	fun invoke(param: P) {
-		val currentTime = System.currentTimeMillis()
-		val timeDiff = currentTime - lastInvokeTime
+    /** Invokes the action, if possible.
+     */
+    fun invoke(param: P) {
+        val currentTime = System.currentTimeMillis()
+        val timeDiff = currentTime - lastInvokeTime
 
-		if (timeDiff > invokeMinInterval && isInvokable()) {
-			lastInvokeTime = currentTime
-			action(param)
-		}
-	}
+        if (timeDiff > invokeMinInterval && isInvokable()) {
+            lastInvokeTime = currentTime
+            action(param)
+        }
+    }
 
-	/** Return if the action is invokable at this time.
-	 *
-	 * @return true, if action is invokable at this time, otherwise false
-	 */
-	abstract fun isInvokable(): Boolean
+    /** Return if the action is invokable at this time.
+     *
+     * @return true, if action is invokable at this time, otherwise false
+     */
+    abstract fun isInvokable(): Boolean
 
-	companion object {
-		const val DEFAULT_MIN_INTERVAL = 500L
-	}
+    companion object {
+        const val DEFAULT_MIN_INTERVAL = 500L
+    }
 }

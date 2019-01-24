@@ -9,19 +9,19 @@ import androidx.lifecycle.LifecycleOwner
  * @author Jakub Janda
  */
 data class MVVMContainer<M : IViewModel, A : IViewActions>(
-	val view: IBindableView<M, A>,
-	val viewModel: M,
-	val viewActions: A?
-																													) {
-	fun createView(inflater: LayoutInflater, parent: ViewGroup?): View = view.createView(inflater, parent)
+    val view: IBindableView<M, A>,
+    val viewModel: M,
+    val viewActions: A?
+                                                          ) {
+    fun createView(inflater: LayoutInflater, parent: ViewGroup?): View = view.createView(inflater, parent)
 
-	fun bind(lifecycleOwner: LifecycleOwner) {
-		view.bind(viewModel, viewActions, lifecycleOwner)
-		viewModel.onBind()
-	}
+    fun bind(lifecycleOwner: LifecycleOwner) {
+        view.bind(viewModel, viewActions, lifecycleOwner)
+        viewModel.onBind()
+    }
 
-	fun unbind(lifecycleOwner: LifecycleOwner) {
-		view.unbind(lifecycleOwner)
-		viewModel.onUnbind()
-	}
+    fun unbind(lifecycleOwner: LifecycleOwner) {
+        view.unbind(lifecycleOwner)
+        viewModel.onUnbind()
+    }
 }

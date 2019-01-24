@@ -10,7 +10,7 @@ import android.util.Log
  * @author Jakub Janda
  */
 fun Any.logV(message: String) {
-	Log.v(this.javaClass.simpleName, message)
+    Log.v(this.javaClass.simpleName, message)
 }
 
 /** Log.d with object class name as tag.
@@ -20,7 +20,7 @@ fun Any.logV(message: String) {
  * @author Jakub Janda
  */
 fun Any.logD(message: String) {
-	Log.d(this.javaClass.simpleName, message)
+    Log.d(this.javaClass.simpleName, message)
 }
 
 /** Log.w with object class name as tag.
@@ -30,7 +30,7 @@ fun Any.logD(message: String) {
  * @author Jakub Janda
  */
 fun Any.logW(message: String) {
-	Log.w(this.javaClass.simpleName, message)
+    Log.w(this.javaClass.simpleName, message)
 }
 
 /** Log.e with object class name as tag.
@@ -40,5 +40,5 @@ fun Any.logW(message: String) {
  * @author Jakub Janda
  */
 fun Any.logE(message: String) {
-	Log.e(this.javaClass.simpleName, message)
+    Log.e(this.javaClass.simpleName, message)
 }

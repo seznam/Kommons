@@ -14,7 +14,7 @@ import androidx.annotation.DimenRes
  * @author Jakub Spatny
  */
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-	Toast.makeText(this, message, duration).show()
+    Toast.makeText(this, message, duration).show()
 }
 
 /** Shows Toast message.
@@ -25,7 +25,7 @@ fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
  * @author Jakub Spatny
  */
 fun Context.showToast(message: Int, duration: Int = Toast.LENGTH_SHORT) {
-	Toast.makeText(this, message, duration).show()
+    Toast.makeText(this, message, duration).show()
 }
 
 /** Returns pixel size of given dime res.
@@ -43,9 +43,9 @@ fun Context.pixelSizeOf(@DimenRes dimenRes: Int): Int = resources.getDimensionPi
  * @param intent intent to start service
  */
 fun Context.startServiceInForeground(intent: Intent) {
-	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-		startForegroundService(intent)
-	} else {
-		startService(intent)
-	}
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        startForegroundService(intent)
+    } else {
+        startService(intent)
+    }
 }

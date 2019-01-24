@@ -7,7 +7,7 @@ import android.util.SparseArray
  * @author Jakub Janda
  */
 inline val <reified T> SparseArray<T>.values: Array<T>
-	get() = Array(this.size()) { this.valueAt(it) }
+    get() = Array(this.size()) { this.valueAt(it) }
 
 /** Set value on key operator.
  *
@@ -17,6 +17,6 @@ inline val <reified T> SparseArray<T>.values: Array<T>
  * @param value
  */
 operator fun <T> SparseArray<T>.set(key: Int, value: T) {
-	put(key, value)
+    put(key, value)
 }
 

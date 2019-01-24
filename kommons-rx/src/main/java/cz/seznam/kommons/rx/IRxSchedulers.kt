@@ -7,11 +7,11 @@ import io.reactivex.Scheduler
  * @author Jakub Janda
  */
 interface IRxSchedulers {
-	fun io(): Scheduler
+    fun io(): Scheduler
 
-	fun mainThread(): Scheduler
+    fun mainThread(): Scheduler
 
-	fun newThread(): Scheduler
+    fun newThread(): Scheduler
 
-	fun computation(): Scheduler
+    fun computation(): Scheduler
 }
