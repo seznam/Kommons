@@ -14,7 +14,3 @@ fun Resources.getColorCompat(colorRes: Int, theme: Resources.Theme? = null): Int
         getColor(colorRes, theme)
     }
 }
-
-fun Resources.getDrawableCompat(resId: Int, theme: Resources.Theme? = null): Drawable {
-    return if (Build.VERSION.SDK_INT < 21) getDrawable(resId) else getDrawable(resId, theme)
-}
