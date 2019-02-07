@@ -1,1 +1,1 @@
-include ':examples', ':kommons-core', ':kommons-mvvm', ':kommons-rx'
+include ':examples', ':kommons-core', ':kommons-mvvm', ':kommons-rx', ':kommons-di'
