@@ -1,15 +1,15 @@
 package cz.seznam.kommons.mvvm
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.support.v4.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.Fragment
 
 /**
  * @author Jakub Janda
  */
 
-inline fun <reified V : ViewModel> Fragment.obtainViewModel(crossinline viewModelFactory: () -> V): V {
+inline fun <reified V : ViewModel> androidx.fragment.app.Fragment.obtainViewModel(crossinline viewModelFactory: () -> V): V {
     return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
         override fun <V : ViewModel?> create(modelClass: Class<V>): V {
             return viewModelFactory() as V

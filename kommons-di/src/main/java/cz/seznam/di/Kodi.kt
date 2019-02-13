@@ -1,8 +1,8 @@
 package cz.seznam.di
 
 import android.app.Application
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import cz.seznam.di.scope.*
 import cz.seznam.di.tree.ScopeTreeBuilder
 
@@ -61,7 +61,7 @@ inline fun <reified T : AppCompatActivity> activityScope(registrator: ActivitySc
     return ActivityScopeDefinition(T::class.java).apply { registrator.invoke(this) }
 }
 
-inline fun <reified T : Fragment> fragmentScope(registrator: FragmentScopeDefinition<T>.() -> Unit): ScopeDefinition {
+inline fun <reified T : androidx.fragment.app.Fragment> fragmentScope(registrator: FragmentScopeDefinition<T>.() -> Unit): ScopeDefinition {
     return FragmentScopeDefinition(T::class.java).apply { registrator.invoke(this) }
 }
 
@@ -73,7 +73,7 @@ val Application.scope: Scope?
 val AppCompatActivity.scope: Scope?
     get() = Kodi.scopes[hashCode().toString()]
 
-val Fragment.scope: Scope?
+val androidx.fragment.app.Fragment.scope: Scope?
     get() = Kodi.scopes[hashCode().toString()]
 
 inline fun <reified T> Application.obtain(): T {
@@ -85,7 +85,7 @@ inline fun <reified T> AppCompatActivity.obtain(): T {
     return scope?.obtain<T>() ?: throw RuntimeException("There is no dependency scope for ${this.javaClass.name}")
 }
 
-inline fun <reified T> Fragment.obtain(): T {
+inline fun <reified T> androidx.fragment.app.Fragment.obtain(): T {
     return scope?.obtain<T>() ?: throw RuntimeException("There is no dependency scope for ${this.javaClass.name}")
 }
 
@@ -93,5 +93,5 @@ inline fun <reified T> Application.lazyObtain(): Lazy<T> = lazy { obtain<T>() }
 
 inline fun <reified T> AppCompatActivity.lazyObtain(): Lazy<T> = lazy { obtain<T>() }
 
-inline fun <reified T> Fragment.lazyObtain(): Lazy<T> = lazy { obtain<T>() }
+inline fun <reified T> androidx.fragment.app.Fragment.lazyObtain(): Lazy<T> = lazy { obtain<T>() }
 

@@ -3,9 +3,9 @@ package cz.seznam.di.tree
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import cz.seznam.di.Kodi
 import cz.seznam.di.scope.Scope
 import cz.seznam.di.scope.ScopeParameters
@@ -14,7 +14,7 @@ import cz.seznam.di.scope.ScopeParameters
  * @author Jakub Janda
  */
 class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCallbacks,
-    FragmentManager.FragmentLifecycleCallbacks() {
+    androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
 
     init {
         app.registerActivityLifecycleCallbacks(this)
@@ -45,7 +45,7 @@ class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCall
         }
     }
 
-    override fun onFragmentPreCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
+    override fun onFragmentPreCreated(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment, savedInstanceState: Bundle?) {
         super.onFragmentCreated(fm, f, savedInstanceState)
 
         val scopeDefinition = Kodi.findScopeDefinition(f::class.java.name)
@@ -61,7 +61,7 @@ class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCall
         }
     }
 
-    override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
+    override fun onFragmentDestroyed(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
         super.onFragmentDestroyed(fm, f)
         Kodi.scopes.remove(f.hashCode().toString())
     }
@@ -70,7 +70,7 @@ class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCall
         return Kodi.scopes[activity.application.hashCode().toString()]
     }
 
-    private fun findParentScope(fragment: Fragment): Scope? {
+    private fun findParentScope(fragment: androidx.fragment.app.Fragment): Scope? {
         val parent = fragment.parentFragment
         val activity = fragment.activity
 

@@ -25,7 +25,7 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
     fun createView(
         inflater: LayoutInflater,
         parent: ViewGroup?
-                  ): View
+    ): View
 
     /** Binds model to your view.
      *
@@ -39,7 +39,7 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
         viewModel: T,
         viewActions: A?,
         lifecycleOwner: LifecycleOwner
-            )
+    )
 
     /** Unbinds model from your view.
      *
