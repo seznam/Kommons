@@ -1,4 +1,4 @@
-ext.kommons_kotlinVersion = '1.3.20'
+ext.kommons_kotlinVersion = '1.3.21'
 ext.kommons_compileVersion = 28
 ext.kommons_targetVersion = 28
 ext.kommons_dokkaVersion = "0.9.17"
