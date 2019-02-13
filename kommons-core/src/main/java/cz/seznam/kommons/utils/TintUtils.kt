@@ -34,7 +34,7 @@ object TintUtils {
         @DrawableRes iconRes: Int,
         @ColorRes colorRes: Int,
         copy: Boolean = false
-                         ): Drawable {
+    ): Drawable {
         val res = context.resources
         val color = res.getColor(colorRes)
 
@@ -61,7 +61,7 @@ object TintUtils {
         @DrawableRes iconRes: Int,
         @ColorInt colorValue: Int,
         copy: Boolean
-                                ): Drawable {
+    ): Drawable {
         var drawable = ContextCompat.getDrawable(context, iconRes)
 
         if (copy) {
@@ -78,7 +78,7 @@ object TintUtils {
         drawable: Drawable,
         @ColorRes colorRes: Int,
         copy: Boolean
-                         ): Drawable {
+    ): Drawable {
         var drawable = drawable
         val res = context.resources
         val color = res.getColor(colorRes)
@@ -96,7 +96,7 @@ object TintUtils {
         drawable: Drawable,
         @ColorInt color: Int,
         copy: Boolean
-                                ): Drawable {
+    ): Drawable {
         var drawable = drawable
         if (copy) {
             drawable = drawable.mutate()

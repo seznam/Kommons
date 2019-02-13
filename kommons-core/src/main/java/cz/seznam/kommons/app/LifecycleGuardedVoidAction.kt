@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference
 class LifecycleGuardedVoidAction(
     lifecycle: Lifecycle,
     action: () -> Unit
-                                ) : GuardedVoidAction(action) {
+) : GuardedVoidAction(action) {
     private val lifecycleRef = WeakReference(lifecycle)
 
     override fun isInvokable(): Boolean {

@@ -19,7 +19,7 @@ import cz.seznam.kommons.utils.TintUtils
 fun TextView.setDrawableTop(
     drawableRes: Int,
     colorRes: Int = 0
-                           ) = if (colorRes == 0) {
+) = if (colorRes == 0) {
     setCompoundDrawablesWithIntrinsicBounds(0, drawableRes, 0, 0)
 } else {
     setCompoundDrawablesWithIntrinsicBounds(
@@ -28,8 +28,8 @@ fun TextView.setDrawableTop(
             drawableRes,
             colorRes,
             true
-                                         ), null, null
-                                           )
+        ), null, null
+    )
 }
 
 /** Set bottom drawable.
@@ -42,7 +42,7 @@ fun TextView.setDrawableTop(
 fun TextView.setDrawableBottom(
     drawableRes: Int,
     colorRes: Int = 0
-                              ) = if (colorRes == 0) {
+) = if (colorRes == 0) {
     setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, drawableRes)
 } else {
     setCompoundDrawablesWithIntrinsicBounds(
@@ -51,8 +51,8 @@ fun TextView.setDrawableBottom(
             drawableRes,
             colorRes,
             true
-                                                     )
-                                           )
+        )
+    )
 }
 
 /** Set right drawable.
@@ -65,7 +65,7 @@ fun TextView.setDrawableBottom(
 fun TextView.setDrawableRight(
     drawableRes: Int,
     colorRes: Int = 0
-                             ) = if (colorRes == 0) {
+) = if (colorRes == 0) {
     setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableRes, 0)
 } else {
     setCompoundDrawablesWithIntrinsicBounds(
@@ -74,8 +74,8 @@ fun TextView.setDrawableRight(
             drawableRes,
             colorRes,
             true
-                                               ), null
-                                           )
+        ), null
+    )
 }
 
 /** Set left drawable.
@@ -88,7 +88,7 @@ fun TextView.setDrawableRight(
 fun TextView.setDrawableLeft(
     drawableRes: Int,
     colorRes: Int = 0
-                            ) = if (colorRes == 0) {
+) = if (colorRes == 0) {
     setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableRes, 0)
 } else {
     setCompoundDrawablesWithIntrinsicBounds(
@@ -97,8 +97,8 @@ fun TextView.setDrawableLeft(
             drawableRes,
             colorRes,
             true
-                                   ), null, null, null
-                                           )
+        ), null, null, null
+    )
 }
 
 /** Set left drawable.
@@ -136,7 +136,7 @@ fun TextView.setDrawableBottom(drawable: Drawable?) = setCompoundDrawablesWithIn
     null,
     null,
     drawable
-                                                                                             )
+)
 
 /** Set text with format arguments to the TextView.
  *

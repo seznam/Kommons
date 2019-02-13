@@ -7,14 +7,14 @@ import cz.seznam.kommons.kexts.guardAction
 
 class MainActivity : AppCompatActivity() {
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-		setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-		val view = View(this)
-		view.setOnClickListener(guardAction<View> {
+        val view = View(this)
+        view.setOnClickListener(guardAction<View> {
 
-		})
-	}
+        })
+    }
 }

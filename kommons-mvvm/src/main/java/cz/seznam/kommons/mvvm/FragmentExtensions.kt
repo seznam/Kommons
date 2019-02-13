@@ -3,7 +3,6 @@ package cz.seznam.kommons.mvvm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.fragment.app.Fragment
 
 /**
  * @author Jakub Janda

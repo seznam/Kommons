@@ -1,7 +1,6 @@
 package cz.seznam.di
 
 import android.app.Application
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import cz.seznam.di.scope.*
 import cz.seznam.di.tree.ScopeTreeBuilder

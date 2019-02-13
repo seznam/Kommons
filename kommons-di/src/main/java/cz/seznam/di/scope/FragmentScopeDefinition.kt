@@ -1,7 +1,5 @@
 package cz.seznam.di.scope
 
-import androidx.fragment.app.Fragment
-
 /**
  * @author Jakub Janda
  */

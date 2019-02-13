@@ -3,8 +3,6 @@ package cz.seznam.di.tree
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.appcompat.app.AppCompatActivity
 import cz.seznam.di.Kodi
 import cz.seznam.di.scope.Scope
@@ -45,7 +43,11 @@ class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCall
         }
     }
 
-    override fun onFragmentPreCreated(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment, savedInstanceState: Bundle?) {
+    override fun onFragmentPreCreated(
+        fm: androidx.fragment.app.FragmentManager,
+        f: androidx.fragment.app.Fragment,
+        savedInstanceState: Bundle?
+    ) {
         super.onFragmentCreated(fm, f, savedInstanceState)
 
         val scopeDefinition = Kodi.findScopeDefinition(f::class.java.name)

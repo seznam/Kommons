@@ -12,7 +12,7 @@ data class MVVMContainer<M : IViewModel, A : IViewActions>(
     val view: IBindableView<M, A>,
     val viewModel: M,
     val viewActions: A?
-                                                          ) {
+) {
     fun createView(inflater: LayoutInflater, parent: ViewGroup?): View = view.createView(inflater, parent)
 
     fun bind(lifecycleOwner: LifecycleOwner) {

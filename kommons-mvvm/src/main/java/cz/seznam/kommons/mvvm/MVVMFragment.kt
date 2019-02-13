@@ -24,7 +24,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-                             ): View? {
+    ): View? {
         val view = view
         val viewModel = viewModel
 
