@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 
-/** Base interface for implementig views by MVVM pattern.
+/** Base interface for implementation of views by MVVM pattern.
  *
- * Implementations should be used together with KFragment and IViewModel.
+ * Implementations should be used together with MVVMFragment and IViewModel.
  *
  * @author Jakub Janda
  */
