@@ -1,6 +1,6 @@
 # Kodi
 
-Kod is a dependency injection tool for Android application projects written in Kotlin. It is build on Android
+Kodi is a dependency injection tool for Android application projects written in Kotlin. It is build on Android
 components as Application, Activity and Fragment and it builds its dependency tree naturally as the application is build 
 by using these components. By default it strictly respects lifecycle of these components, Scopes are automatically 
 created in onCreate() and released in onDestroy() callbacks.
