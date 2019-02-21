@@ -8,26 +8,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 
-/**
- * @author Jakub Janda
- */
 object TintUtils {
-
-    /** Vrati obarveny drawable objekt.
-     *
-     * Pokud je parametr copy false, obarvuje se drawable vraceny primo metodou Resources.getDrawable,
-     * tim padem muzou byt obarveny vsechny drawable objekty, ktere jsou vytvoreny z daneho id.
-     *
-     * Pokud je parametr copy true, je nedrive drawable zkopirovan a pote az obarven, aby se zamezilo nechtenemu
-     * obarveni ostatnich drawable objektu z daneho resource id.
-     *
-     * @param context context
-     * @param iconRes resource id drawable obrazku
-     * @param colorRes resource id barvy, kterou chceme obarvovat
-     * @param copy zda pred aplikovanim tintu nejdrive zkopirovat drawable
-     *
-     * @return obarveny drawable
-     */
     @JvmOverloads
     fun getTintedDrawable(
         context: Context,
@@ -41,21 +22,6 @@ object TintUtils {
         return getTintedDrawableByColor(context, iconRes, color, copy)
     }
 
-    /** Vrati obarveny drawable objekt.
-     *
-     * Pokud je parametr copy false, obarvuje se drawable vraceny primo metodou Resources.getDrawable,
-     * tim padem muzou byt obarveny vsechny drawable objekty, ktere jsou vytvoreny z daneho id.
-     *
-     * Pokud je parametr copy true, je nedrive drawable zkopirovan a pote az obarven, aby se zamezilo nechtenemu
-     * obarveni ostatnich drawable objektu z daneho resource id.
-     *
-     * @param context context
-     * @param iconRes resource id drawable obrazku
-     * @param colorValue hodnota barvy (to co vrati volani resources.getColor()), kterou chceme obarvovat
-     * @param copy zda pred aplikovanim tintu nejdrive zkopirovat drawable
-     *
-     * @return obarveny drawable
-     */
     fun getTintedDrawableByColor(
         context: Context,
         @DrawableRes iconRes: Int,
