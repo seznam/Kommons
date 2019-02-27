@@ -153,19 +153,28 @@ fun View.animateScale(
 }
 
 
-fun View.createTranslationX(from: Float = this.translationX, to: Float): Animator = ObjectAnimator.ofFloat(
-    this,
-    "translationX",
-    from,
-    to
-)
+fun View.animateRotation(
+    from: Float = rotation,
+    to: Float
+): Animator {
+    return setViewAnimation(this, ObjectAnimator.ofFloat(this, "rotation", from, to))
+}
 
-fun View.createAnimTransY(from: Float = this.translationY, to: Float): Animator = ObjectAnimator.ofFloat(
-    this,
-    "translationY",
-    from,
-    to
-)
+fun View.createTranslationX(from: Float = this.translationX, to: Float): Animator =
+    ObjectAnimator.ofFloat(
+        this,
+        "translationX",
+        from,
+        to
+    )
+
+fun View.createAnimTransY(from: Float = this.translationY, to: Float): Animator =
+    ObjectAnimator.ofFloat(
+        this,
+        "translationY",
+        from,
+        to
+    )
 
 fun View.createAlphaAnim(from: Float = this.alpha, to: Float): Animator = ObjectAnimator.ofFloat(
     this,
@@ -185,12 +194,13 @@ fun View.createScaleAnim(from: Float = this.scale, to: Float): Animator {
     return anim
 }
 
-fun View.createRotateAnim(from: Float = this.rotation, to: Float): Animator = ObjectAnimator.ofFloat(
-    this,
-    "rotation",
-    from,
-    to
-)
+fun View.createRotateAnim(from: Float = this.rotation, to: Float): Animator =
+    ObjectAnimator.ofFloat(
+        this,
+        "rotation",
+        from,
+        to
+    )
 
 fun View.clearAnim() {
     val oldAnim = getTag(R.id.view_animator) as? Animator?
