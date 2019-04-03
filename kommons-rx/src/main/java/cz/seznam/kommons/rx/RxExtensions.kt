@@ -67,7 +67,7 @@ fun <T : Any> Observable<T>.safeSubscribe(
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit,
     onComplete: (() -> Unit)? = null
-                                         ): Disposable {
+): Disposable {
     val subscriptionLock = Object()
     var subscriptionActive = true
 
@@ -92,7 +92,7 @@ fun <T : Any> Single<T>.safeSubscribe(onSuccess: (T) -> Unit): Disposable {
 fun <T : Any> Single<T>.safeSubscribe(
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
-                                     ): Disposable {
+): Disposable {
     val subscriptionLock = Object()
     var subscriptionActive = true
 
@@ -108,7 +108,7 @@ inline fun Completable.safeSubscribe(crossinline onComplete: () -> Unit = {}): D
 inline fun Completable.safeSubscribe(
     crossinline onComplete: () -> Unit = {},
     crossinline onError: (Throwable) -> Unit
-                                    ): Disposable {
+): Disposable {
     val subscriptionLock = Object()
     var subscriptionActive = true
 
@@ -126,7 +126,7 @@ fun <T : Any> Flowable<T>.safeSubscribe(
     onNext: (T) -> Unit,
     onError: (Throwable) -> Unit = Rx.defaultErrorHandler,
     onComplete: (() -> Unit)? = null
-                                       ): Disposable {
+): Disposable {
     val subscriptionLock = Object()
     var subscriptionActive = true
 
@@ -152,7 +152,7 @@ inline fun startTimer(
     interval: Long,
     timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
     crossinline callback: () -> Unit
-                     ): Disposable = Flowable.interval(interval, timeUnit)
+): Disposable = Flowable.interval(interval, timeUnit)
     .onBackpressureLatest()
     .subsOnComputation()
     .safeSubscribe({ callback() }, {}, {})
@@ -168,7 +168,7 @@ inline fun startUiTimer(
     interval: Long,
     timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
     crossinline callback: () -> Unit
-                       ): Disposable = Flowable.interval(interval, timeUnit)
+): Disposable = Flowable.interval(interval, timeUnit)
     .observeOn(AndroidSchedulers.mainThread())
     .onBackpressureLatest()
     .safeSubscribe({ callback() }, {}, {})
@@ -183,7 +183,7 @@ inline fun startUiCountdown(
     interval: Long,
     timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
     crossinline callback: () -> Unit
-                           ): Disposable {
+): Disposable {
     return Flowable.timer(interval, timeUnit)
         .subscribeOn(Rx.schedulers.computation())
         .onBackpressureLatest()

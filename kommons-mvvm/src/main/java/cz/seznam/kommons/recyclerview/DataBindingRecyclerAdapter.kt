@@ -16,7 +16,7 @@ import cz.seznam.kommons.mvvm.IViewActions
 abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(
     context: Context,
     itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()
-                                                                 ) :
+) :
     ListAdapter<T, ViewDataBindingHolder<H>>(itemCallbacks) {
     private val data = ArrayList<T>()
 
@@ -74,17 +74,17 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-                                   ): ViewDataBindingHolder<H> = ViewDataBindingHolder(
+    ): ViewDataBindingHolder<H> = ViewDataBindingHolder(
         onCreateView(
             parent,
             viewType
-                    )
-                                                                                      )
+        )
+    )
 
     open fun onCreateView(
         parent: ViewGroup,
         viewType: Int
-                         ): H = DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
+    ): H = DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
 
     override fun onBindViewHolder(holder: ViewDataBindingHolder<H>, position: Int) {
         val viewModel = getItem(position)
