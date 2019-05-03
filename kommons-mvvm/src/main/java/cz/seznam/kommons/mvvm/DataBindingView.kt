@@ -25,8 +25,11 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
   override fun createView(inflater: LayoutInflater, parent: ViewGroup?): View {
     val v = DataBindingUtil.inflate<V>(inflater, viewRes, parent, false)
     this.viewBinding = v
+    onViewCreated(v)
     return v.root
   }
+
+  open fun onViewCreated(viewBinding: V) = Unit
 
   /**
    *
@@ -34,7 +37,7 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
   final override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
     this.lifecycleOwner = lifecycleOwner
     this.viewActions = viewActions
-    viewBinding?.setLifecycleOwner(lifecycleOwner)
+    viewBinding?.lifecycleOwner = lifecycleOwner
     viewBinding?.setVariable(BR.viewModel, viewModel)
     viewBinding?.setVariable(BR.viewActions, viewActions)
     this.viewModel = viewModel
