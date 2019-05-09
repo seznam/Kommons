@@ -15,14 +15,13 @@ import cz.seznam.kommons.mvvm.IViewActions
  */
 abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(
     context: Context,
-    itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback()
+    itemCallbacks: DiffUtil.ItemCallback<T> = EmptyDataBindingItemCallback(),
+    val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 ) :
     ListAdapter<T, ViewDataBindingHolder<H>>(itemCallbacks) {
     private val data = ArrayList<T>()
 
     val items: List<T> = data
-
-    val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
     open fun clear() {
         data.clear()
