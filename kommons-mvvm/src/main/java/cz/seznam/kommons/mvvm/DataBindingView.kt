@@ -52,6 +52,9 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
     this.lifecycleOwner = null
     bound = false
     viewBinding?.unbind()
+    viewBinding?.setVariable(BR.viewModel, null)
+    viewBinding?.setVariable(BR.viewActions, null)
+    viewBinding?.lifecycleOwner = null
     viewModel = null
     viewActions = null
   }
