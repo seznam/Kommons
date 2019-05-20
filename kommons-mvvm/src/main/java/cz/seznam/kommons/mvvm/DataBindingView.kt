@@ -18,7 +18,7 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
     var viewBinding: V? = null
     var viewActions: A? = null
     var viewModel: T? = null
-    var bound: Boolean = false
+    override var isBound: Boolean = false
     var lifecycleOwner: LifecycleOwner? = null
 
     @CallSuper
@@ -34,11 +34,11 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
     final override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
         this.lifecycleOwner = lifecycleOwner
         this.viewActions = viewActions
-        viewBinding?.setLifecycleOwner(lifecycleOwner)
+        viewBinding?.lifecycleOwner = lifecycleOwner
         viewBinding?.setVariable(BR.viewModel, viewModel)
         viewBinding?.setVariable(BR.viewActions, viewActions)
         this.viewModel = viewModel
-        bound = true
+        isBound = true
 
         onBind(viewModel, viewActions, lifecycleOwner)
     }
@@ -47,7 +47,7 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
         onUnbind(lifecycleOwner)
 
         this.lifecycleOwner = null
-        bound = false
+        isBound = false
         viewBinding?.unbind()
         viewModel = null
         viewActions = null

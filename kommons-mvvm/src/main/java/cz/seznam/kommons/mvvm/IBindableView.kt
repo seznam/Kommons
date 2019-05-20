@@ -13,6 +13,11 @@ import androidx.lifecycle.LifecycleOwner
  */
 interface IBindableView<in T : IViewModel, in A : IViewActions> {
 
+    /** Returns if view is isBound to the ViewModel.
+     *
+     */
+    val isBound: Boolean
+
     /** Creates view.
      *
      * Prepare your view . It's called before bind().
