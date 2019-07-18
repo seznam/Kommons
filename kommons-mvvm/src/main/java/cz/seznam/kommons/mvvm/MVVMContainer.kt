@@ -15,6 +15,8 @@ data class MVVMContainer<M : IViewModel, A : IViewActions>(
 ) {
     fun createView(inflater: LayoutInflater, parent: ViewGroup?): View = view.createView(inflater, parent)
 
+    fun destroyView() = view.destroyView()
+
     fun bind(lifecycleOwner: LifecycleOwner) {
         view.bind(viewModel, viewActions, lifecycleOwner)
         viewModel.onBind()

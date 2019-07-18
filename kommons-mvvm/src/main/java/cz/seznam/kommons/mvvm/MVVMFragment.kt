@@ -43,6 +43,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         super.onDestroyView()
 
         view?.unbind(this)
+        view?.destroyView()
         viewModel?.onUnbind()
     }
 
