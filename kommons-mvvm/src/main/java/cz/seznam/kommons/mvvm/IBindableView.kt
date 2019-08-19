@@ -1,5 +1,6 @@
 package cz.seznam.kommons.mvvm
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +23,7 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
    *
    * @return your view
    */
-  fun createView(
-    inflater: LayoutInflater,
-    parent: ViewGroup?
-  ): View
+  fun createView(inflater: LayoutInflater, parent: ViewGroup?, viewState: Bundle? = null): View
 
   /** Called when view is destroyed.
    *
@@ -36,9 +34,11 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
 
   }
 
+  fun saveViewState(state: Bundle) {}
+
   /** Binds model to your view.
    *
-   * It's called whne view and model is ready for use together, typically in some onViewCreated phase,
+   * It's called when view and model is ready for use together, typically in some onViewCreated phase,
    * after createView() is called.
    *
    * @param viewModel model for your view
