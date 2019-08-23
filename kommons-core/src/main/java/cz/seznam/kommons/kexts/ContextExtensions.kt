@@ -3,7 +3,9 @@ package cz.seznam.kommons.kexts
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.TypedValue
 import android.widget.Toast
+import androidx.annotation.AttrRes
 import androidx.annotation.DimenRes
 
 /** Shows Toast message.
@@ -14,7 +16,7 @@ import androidx.annotation.DimenRes
  * @author Jakub Spatny
  */
 fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
+  Toast.makeText(this, message, duration).show()
 }
 
 /** Shows Toast message.
@@ -25,7 +27,7 @@ fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
  * @author Jakub Spatny
  */
 fun Context.showToast(message: Int, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
+  Toast.makeText(this, message, duration).show()
 }
 
 /** Returns pixel size of given dime res.
@@ -34,7 +36,7 @@ fun Context.showToast(message: Int, duration: Int = Toast.LENGTH_SHORT) {
  *
  * @return dimenion in pixels
  */
-fun Context.pixelSizeOf(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
+fun Context.px(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
 
 /** Start service in foreground.
  *
@@ -43,9 +45,15 @@ fun Context.pixelSizeOf(@DimenRes dimenRes: Int): Int = resources.getDimensionPi
  * @param intent intent to start service
  */
 fun Context.startServiceInForeground(intent: Intent) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        startForegroundService(intent)
-    } else {
-        startService(intent)
-    }
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    startForegroundService(intent)
+  } else {
+    startService(intent)
+  }
+}
+
+fun Context.getThemeColor(@AttrRes attr: Int, resolveValue: Boolean = true): Int {
+  val typedValue = TypedValue()
+  theme.resolveAttribute(attr, typedValue, resolveValue)
+  return typedValue.data
 }

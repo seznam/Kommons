@@ -1,7 +1,9 @@
 package cz.seznam.kommons.kexts
 
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.widget.TextView
+import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
 import cz.seznam.kommons.utils.TintUtils
 
@@ -145,4 +147,8 @@ fun TextView.setDrawableBottom(drawable: Drawable?) = setCompoundDrawablesWithIn
  */
 fun TextView.setText(@StringRes resId: Int, vararg args: Any) {
     text = context.getString(resId, *args)
+}
+
+fun TextView.setTextSizePx(@DimenRes dimen: Int) {
+  setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(dimen).toFloat())
 }

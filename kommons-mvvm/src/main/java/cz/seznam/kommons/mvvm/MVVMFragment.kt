@@ -29,7 +29,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         val viewModel = viewModel
 
         if (view != null && viewModel != null) {
-            val v = view.createView(inflater, container)
+            val v = view.createView(obtainInflater(inflater), container)
 
             view.bind(viewModel, viewActions, this)
             viewModel.onBind()
@@ -43,6 +43,9 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         super.onDestroyView()
 
         view?.unbind(this)
+        view?.destroyView()
         viewModel?.onUnbind()
     }
+
+    open fun obtainInflater(origInflater: LayoutInflater): LayoutInflater = origInflater
 }

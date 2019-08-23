@@ -267,4 +267,6 @@ var View.leftMargin: Int
         requestLayout()
     }
 
-fun View.pixelSizeOf(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
+fun View.px(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
+
+fun View.dip(pixels: Int): Float = resources.displayMetrics.scaledDensity * pixels
