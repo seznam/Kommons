@@ -17,7 +17,15 @@ class Scope(
         return if (factory != null) {
             factory.obtain(this, parameters) as T
         } else {
-            parent?.obtain(clazz, specialization) ?: throw RuntimeException("There is no factory for $key")
+            val parent = parent
+
+            if (parent == null) {
+                throw RuntimeException("There is no parent of ${definition.name} with factory for $key")
+            }
+            else {
+                parent.obtain(clazz, specialization) ?:
+                throw RuntimeException("Parent ${parent.definition.name} can't create instance of $key")
+            }
         }
     }
 

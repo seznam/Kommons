@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import cz.seznam.di.Kodi
 import cz.seznam.di.scope.Scope
 import cz.seznam.di.scope.ScopeParameters
@@ -12,7 +14,7 @@ import cz.seznam.di.scope.ScopeParameters
  * @author Jakub Janda
  */
 class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCallbacks,
-    androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+    FragmentManager.FragmentLifecycleCallbacks() {
 
     init {
         app.registerActivityLifecycleCallbacks(this)
@@ -44,8 +46,8 @@ class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCall
     }
 
     override fun onFragmentPreCreated(
-        fm: androidx.fragment.app.FragmentManager,
-        f: androidx.fragment.app.Fragment,
+        fm: FragmentManager,
+        f: Fragment,
         savedInstanceState: Bundle?
     ) {
         super.onFragmentCreated(fm, f, savedInstanceState)
@@ -63,7 +65,7 @@ class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCall
         }
     }
 
-    override fun onFragmentDestroyed(fm: androidx.fragment.app.FragmentManager, f: androidx.fragment.app.Fragment) {
+    override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
         super.onFragmentDestroyed(fm, f)
         Kodi.scopes.remove(f.hashCode().toString())
     }
@@ -72,7 +74,7 @@ class ScopeTreeBuilder(val app: Application) : Application.ActivityLifecycleCall
         return Kodi.scopes[activity.application.hashCode().toString()]
     }
 
-    private fun findParentScope(fragment: androidx.fragment.app.Fragment): Scope? {
+    private fun findParentScope(fragment: Fragment): Scope? {
         val parent = fragment.parentFragment
         val activity = fragment.activity
 

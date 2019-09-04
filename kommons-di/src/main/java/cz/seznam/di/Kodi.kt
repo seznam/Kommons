@@ -1,6 +1,7 @@
 package cz.seznam.di
 
 import android.app.Application
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import cz.seznam.di.scope.*
@@ -62,7 +63,7 @@ inline fun <reified T : AppCompatActivity> activityScope(registrator: ActivitySc
   return ActivityScopeDefinition(T::class.java).apply { registrator.invoke(this) }
 }
 
-inline fun <reified T : androidx.fragment.app.Fragment> fragmentScope(registrator: FragmentScopeDefinition<T>.() -> Unit): ScopeDefinition {
+inline fun <reified T : Fragment> fragmentScope(registrator: FragmentScopeDefinition<T>.() -> Unit): ScopeDefinition {
   return FragmentScopeDefinition(T::class.java).apply { registrator.invoke(this) }
 }
 
@@ -75,7 +76,7 @@ val Application.scope: Scope?
 val AppCompatActivity.scope: Scope?
   get() = Kodi.scopes[hashCode().toString()]
 
-val androidx.fragment.app.Fragment.scope: Scope?
+val Fragment.scope: Scope?
   get() = Kodi.scopes[hashCode().toString()]
 
 inline fun <reified T> Application.obtain(): T {

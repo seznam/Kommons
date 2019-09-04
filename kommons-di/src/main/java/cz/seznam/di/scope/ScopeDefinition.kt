@@ -24,7 +24,7 @@ open class ScopeDefinition(val name: String) {
     ) {
         val key = "${instanceFactory.clazz.name}_$specialization"
 
-        Log.i("ScopeDefinition", "Registring $key")
+        Log.i("ScopeDefinition", "Registering $key")
 
         if (factoryMap.containsKey(key) && !override) {
             throw RuntimeException("Instance factory for $key already registered. Check your dependency tree or use override")
