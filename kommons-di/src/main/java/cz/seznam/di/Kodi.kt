@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import cz.seznam.di.scope.*
-import cz.seznam.di.tree.ScopeTreeBuilder
+import cz.seznam.di.tree.ApplicationScopeTreeBuilder
 
 /**
  * @author Jakub Janda
@@ -45,9 +45,17 @@ object Kodi {
     return Scope(definition, parent, params)
   }
 
-  fun start(app: Application, scopeDefinitions: List<ScopeDefinition>) {
+  fun createContextScope(context: Context, scopeDefinition: ContextScopeDefinition): Scope {
+    return createScope(scopeDefinition, null, ScopeParameters(context))
+  }
+
+  fun start(
+    app: Application,
+    appScope: Scope?,
+    scopeDefinitions: List<ScopeDefinition>
+  ) {
     scopeDefinitions.forEach { registerScopeDefinition(it) }
-    ScopeTreeBuilder(app)
+    ApplicationScopeTreeBuilder(app, appScope)
   }
 }
 
@@ -55,23 +63,23 @@ fun scope(name: String = "", registrator: ScopeDefinition.() -> Unit): ScopeDefi
   return ScopeDefinition(name).apply { registrator.invoke(this) }
 }
 
-inline fun <reified T : Application> applicationScope(registrator: ApplicationScopeDefinition<T>.() -> Unit): ScopeDefinition {
-  return ApplicationScopeDefinition(T::class.java).apply { registrator.invoke(this) }
-}
-
-inline fun <reified T : AppCompatActivity> activityScope(registrator: ActivityScopeDefinition<T>.() -> Unit): ScopeDefinition {
+inline fun <reified T : AppCompatActivity> activityScope(registrator: ActivityScopeDefinition<T>.() -> Unit): ActivityScopeDefinition<T> {
   return ActivityScopeDefinition(T::class.java).apply { registrator.invoke(this) }
 }
 
-inline fun <reified T : Fragment> fragmentScope(registrator: FragmentScopeDefinition<T>.() -> Unit): ScopeDefinition {
+inline fun <reified T : Fragment> fragmentScope(registrator: FragmentScopeDefinition<T>.() -> Unit): FragmentScopeDefinition<T> {
   return FragmentScopeDefinition(T::class.java).apply { registrator.invoke(this) }
 }
 
-fun Application.startKodi(vararg scopeDefinitions: ScopeDefinition) =
-  Kodi.start(this, scopeDefinitions.asList())
+inline fun contextScope(
+  name: String,
+  registrator: ContextScopeDefinition.() -> Unit
+): ContextScopeDefinition {
+  return ContextScopeDefinition(name).apply { registrator.invoke(this) }
+}
 
-val Application.scope: Scope?
-  get() = Kodi.scopes[hashCode().toString()]
+fun Application.startKodi(vararg scopeDefinitions: ScopeDefinition) =
+  Kodi.start(this, null, scopeDefinitions.asList())
 
 val AppCompatActivity.scope: Scope?
   get() = Kodi.scopes[hashCode().toString()]
@@ -79,22 +87,12 @@ val AppCompatActivity.scope: Scope?
 val Fragment.scope: Scope?
   get() = Kodi.scopes[hashCode().toString()]
 
-inline fun <reified T> Application.obtain(): T {
-  return scope?.obtain<T>()
-    ?: throw RuntimeException("There is no dependency scope for ${this.javaClass.name}")
-}
-
 inline fun <reified T> AppCompatActivity.obtain(): T? {
   return scope?.obtain<T>()
 }
 
 inline fun <reified T> Fragment.obtain(): T? {
   return scope?.obtain<T>()
-}
-
-inline fun <reified T> Application.lazyObtain(): Lazy<T> = lazy {
-  scope?.obtain<T>()
-    ?: throw RuntimeException("There is no dependency scope for ${this.javaClass.name}")
 }
 
 inline fun <reified T> AppCompatActivity.lazyObtain(): Lazy<T> = lazy {
