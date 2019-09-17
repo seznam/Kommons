@@ -11,19 +11,24 @@ import cz.seznam.di.tree.ApplicationScopeTreeBuilder
  * @author Jakub Janda
  */
 object Kodi {
-  private val scopeDefinitions: MutableMap<String, ScopeDefinition> = mutableMapOf()
+  private val scopeDefinitions: MutableMap<String, MutableList<ScopeDefinition>> = mutableMapOf()
 
   internal val scopes: MutableMap<String, Scope> = mutableMapOf()
 
   fun registerScopeDefinition(scope: ScopeDefinition) {
-    scopeDefinitions[scope.name] = scope
+    val definitions = scopeDefinitions[scope.name]
+    if (definitions != null) {
+      definitions += scope
+    } else {
+      scopeDefinitions[scope.name] = mutableListOf(scope)
+    }
   }
 
   fun removeScopeDefinition(scope: ScopeDefinition) {
     scopeDefinitions.remove(scope.name)
   }
 
-  fun findScopeDefinition(name: String): ScopeDefinition? {
+  fun findScopeDefinition(name: String): List<ScopeDefinition>? {
     return scopeDefinitions[name]
   }
 
@@ -38,14 +43,14 @@ object Kodi {
   }
 
   fun createScope(
-    definition: ScopeDefinition,
+    definition: List<ScopeDefinition>,
     parent: Scope? = null,
     params: ScopeParameters = ScopeParameters()
   ): Scope {
     return Scope(definition, parent, params)
   }
 
-  fun createContextScope(context: Context, scopeDefinition: ContextScopeDefinition): Scope {
+  fun createContextScope(context: Context, scopeDefinition:  List<ContextScopeDefinition>): Scope {
     return createScope(scopeDefinition, null, ScopeParameters(context))
   }
 
