@@ -1,5 +1,6 @@
 package cz.seznam.kommons.mvvm
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,14 +23,14 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
   var lifecycleOwner: LifecycleOwner? = null
 
   @CallSuper
-  override fun createView(inflater: LayoutInflater, parent: ViewGroup?): View {
+  override fun createView(inflater: LayoutInflater, parent: ViewGroup?, viewState: Bundle?): View {
     val v = DataBindingUtil.inflate<V>(inflater, viewRes, parent, false)
     this.viewBinding = v
-    onViewCreated(v)
+    onViewCreated(v, viewState)
     return v.root
   }
 
-  open fun onViewCreated(viewBinding: V) = Unit
+  open fun onViewCreated(viewBinding: V, viewState: Bundle?) = Unit
 
   /**
    *

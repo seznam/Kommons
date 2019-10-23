@@ -29,7 +29,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         val viewModel = viewModel
 
         if (view != null && viewModel != null) {
-            val v = view.createView(obtainInflater(inflater), container)
+            val v = view.createView(obtainInflater(inflater), container, savedInstanceState)
 
             view.bind(viewModel, viewActions, this)
             viewModel.onBind()
@@ -45,6 +45,11 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         view?.unbind(this)
         view?.destroyView()
         viewModel?.onUnbind()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        view?.saveViewState(outState)
     }
 
     open fun obtainInflater(origInflater: LayoutInflater): LayoutInflater = origInflater
