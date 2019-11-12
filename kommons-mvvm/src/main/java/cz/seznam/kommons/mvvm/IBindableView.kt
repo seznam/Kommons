@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 
-/** Base interface for implementation of views by MVVM pattern.
- *
- * Implementations should be used together with MVVMFragment and IViewModel.
+/** Base interface for implementing view by MVVM pattern.
  *
  * @author Jakub Janda
  */
@@ -16,7 +14,7 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
 
   /** Creates view.
    *
-   * Prepare your view . It's called before bind().
+   * Prepare your view. It's called before bind().
    *
    * @param inflater inflater you can use to create your view
    * @param parent parent viewgroup for your view
@@ -27,13 +25,16 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
 
   /** Called when view is destroyed.
    *
-   * Your chance to clean up view stuff.
-   *
+   * Your chance to clean up view stuff. It's called after unbind.
    */
   fun destroyView() {
 
   }
 
+  /** Saves the view state for later.
+   *
+   * @param state bundle when you can save your state
+   */
   fun saveViewState(state: Bundle) {}
 
   /** Binds model to your view.
@@ -42,6 +43,7 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
    * after createView() is called.
    *
    * @param viewModel model for your view
+   * @param viewActions actions your view can invoke
    * @param lifecycleOwner lifecycle owner you can use for observing livedata from your model
    */
   fun bind(
@@ -55,6 +57,7 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
    * Here you can unbind your model from view, for example when using DataBinding.
    * Typically called in onDestroyView phase.
    *
+   * @param lifecycleOwner lifecycle owner used to bind your view and viewmodel
    */
   fun unbind(lifecycleOwner: LifecycleOwner)
 }
