@@ -6,18 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-/** Base fragment for implementing Views by Model View ViewModel pattern.
+/** Base fragment for connecting view, viewmodel and viewactions together.
  *
- * Implementations have to provide view and model. Fragment itself is responsible for linking these two components
- * in the right time.
+ * Implementations have to provide view and viewmodel. Fragment itself is responsible
+ * for linking these two components in the right time. It can also provides viewActions
+ * with actions invokable by views.
+ *
+ * The view is created in onCreateView and it's bound with viewModel and viewActions.
+ *
+ * The view is unbound and destroyed in onDestroyView callback in this order.
+ *
+ * The view state is saved in onSaveInstanceState callback.
  *
  * @author Jakub Janda
  */
 abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
+    /** ViewModel for the view.
+     */
     abstract val viewModel: M?
 
+    /** View bindable with the view.
+     */
     abstract val view: IBindableView<M, A>?
 
+    /** View actions invokable by the view.
+     */
     abstract val viewActions: A?
 
     override fun onCreateView(
@@ -52,5 +65,17 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         view?.saveViewState(outState)
     }
 
+    /** Obtains inflater for creating the view.
+     *
+     * Default implementation returns the one given in onCreateView callback.
+     * You can provide your own implementation or customization, for example when
+     * using different theme then default.
+     *
+     * It's useful when recreating views during fragment life.
+     *
+     * @param origInflater original inflater given in onCreateView callback
+     *
+     * @return inflater used for creating the view
+     */
     open fun obtainInflater(origInflater: LayoutInflater): LayoutInflater = origInflater
 }

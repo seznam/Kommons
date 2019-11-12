@@ -9,4 +9,4 @@ Kommons core is mainly a set of extensions of standard SDK and Android support l
 
 ## Kommons-mvvm
 Kommons mvvm is a base for apps written in MVVM pattern. It uses Android lifecycle libraries, it has base classes 
-for databinding views and it contains implementation of recycler view adapter based on MVVM.
+for databinding views and it contains implementation of recycler view adapter based on mvvm.
