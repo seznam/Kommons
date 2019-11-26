@@ -38,6 +38,8 @@ fun Context.showToast(message: Int, duration: Int = Toast.LENGTH_SHORT) {
  */
 fun Context.px(@DimenRes dimenRes: Int): Int = resources.getDimensionPixelSize(dimenRes)
 
+fun Context.dp(points: Int): Float = resources.displayMetrics.density * points
+
 /** Start service in foreground.
  *
  * If API>=26 it calls startForegroundService, otherwise startService.
