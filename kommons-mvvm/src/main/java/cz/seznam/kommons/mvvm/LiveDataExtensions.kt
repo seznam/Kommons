@@ -49,3 +49,11 @@ fun <T> MutableLiveData<T>.shoot(value: T) {
   setValue(null)
 }
 
+
+fun <T> LiveData<T>.observeNonNull(lifecycleOwner: LifecycleOwner, setter: (v: T) -> Unit) {
+  this.observe(lifecycleOwner) {
+    if (it != null) {
+      setter(it)
+    }
+  }
+}
