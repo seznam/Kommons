@@ -76,3 +76,4 @@ inline fun Lifecycle.ifResumed(callback: () -> Unit) {
         callback()
     }
 }
+

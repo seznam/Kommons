@@ -57,3 +57,15 @@ fun <T> LiveData<T>.observeNonNull(lifecycleOwner: LifecycleOwner, setter: (v: T
     }
   }
 }
+
+/** Observer forever and return observer you can use lately to stop listen the LiveData.
+ *
+ */
+fun <T> LiveData<T>.observe(setter: (v: T?) -> Unit): Observer<T> {
+  val observer = Observer<T> {
+    setter(it)
+  }
+
+  observeForever(observer)
+  return observer
+}
