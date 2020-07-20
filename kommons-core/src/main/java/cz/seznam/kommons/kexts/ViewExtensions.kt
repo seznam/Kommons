@@ -58,13 +58,13 @@ fun View.isGone(): Boolean = visibility == View.GONE
  *
  * @param callback callback when onPreDraw is called
  */
-fun View.onSinglePreDraw(callback: () -> Unit) {
+fun View.onSinglePreDraw(continueDrawing: Boolean = true, callback: () -> Unit) {
     val view = this
     viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
         override fun onPreDraw(): Boolean {
             callback.invoke()
             view.viewTreeObserver.removeOnPreDrawListener(this)
-            return false
+            return continueDrawing
         }
     })
 }

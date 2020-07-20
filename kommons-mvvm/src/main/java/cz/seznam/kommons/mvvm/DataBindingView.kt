@@ -37,6 +37,11 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
     return v.root
   }
 
+  override fun destroyView() {
+    super.destroyView()
+    viewBinding = null
+  }
+
   /** Callback when the view is created.
    *
    * You can customize, and setup and restore your view here.
