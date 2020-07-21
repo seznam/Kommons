@@ -25,7 +25,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
      */
     abstract val viewModel: M?
 
-    /** View bindable with the view.
+    /** View bindable with the viewmodel.
      */
     abstract val view: IBindableView<M, A>?
 

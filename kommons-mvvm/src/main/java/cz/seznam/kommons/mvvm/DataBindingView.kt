@@ -15,7 +15,7 @@ import kotlin.reflect.KMutableProperty0
  *
  * It automatically inflates given layout in createView callback. It also
  * automatically binds viewModel and viewActions to your view, if your layout
- * contains viewModel od viewActions variables.
+ * contains viewModel or viewActions variables.
  *
  * @param viewRes layout res with your view
  *
@@ -42,7 +42,7 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
     viewBinding = null
   }
 
-  /** Callback when the view is created.
+  /** Called when the view is created.
    *
    * You can customize, and setup and restore your view here.
    *
@@ -78,7 +78,7 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
 
   /** Called when the view is bound with viewModel and viewActions.
    *
-   * In this state is is already bound with ViewDataBinding ,
+   * In this state the view is already bound with ViewDataBinding,
    * if it contains BR.viewModel or BR.viewActions variables.
    *
    * This is the good place to start observing livedata or observables in the viewmodel.

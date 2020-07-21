@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 /** Base dialog fragment for connecting view, viewmodel and viewactions together.
  *
  * Implementations have to provide view and viewmodel. Fragment itself is responsible
- * for linking these two components in the right time. It can also provides viewActions
+ * for linking these two components in the right time. It can also provide viewActions
  * with actions invokable by views.
  *
  * The view is created in onCreateView and it's bound with viewModel and viewActions.
@@ -64,7 +64,7 @@ abstract class MVVMDialogFragment<M : IViewModel, A : IViewActions> : DialogFrag
    *
    * Default implementation returns the one given in onCreateView callback.
    * You can provide your own implementation or customization, for example when
-   * using different theme then default.
+   * using different theme than default.
    *
    * It's useful when recreating views during fragment life.
    *
