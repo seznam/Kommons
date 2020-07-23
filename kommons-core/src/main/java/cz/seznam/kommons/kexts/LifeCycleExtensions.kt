@@ -5,11 +5,6 @@ import androidx.lifecycle.LifecycleOwner
 import cz.seznam.kommons.app.LifecycleGuardedAction
 import cz.seznam.kommons.app.LifecycleGuardedVoidAction
 
-/**
- * @author Jakub Janda
- */
-
-
 /** Guard action with this LifecycleOwner.
  *
  * @param action action to be guarded
@@ -81,3 +76,4 @@ inline fun Lifecycle.ifResumed(callback: () -> Unit) {
         callback()
     }
 }
+

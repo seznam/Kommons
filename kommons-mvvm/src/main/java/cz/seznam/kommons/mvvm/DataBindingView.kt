@@ -11,7 +11,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import kotlin.reflect.KMutableProperty0
 
-/**
+/** Implementation of IBindableView using androidx ViewDataBinding.
+ *
+ * It automatically inflates given layout in createView callback. It also
+ * automatically binds viewModel and viewActions to your view, if your layout
+ * contains viewModel or viewActions variables.
+ *
+ * @param viewRes layout res with your view
+ *
  * @author Jakub Janda
  */
 open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions>(private val viewRes: Int) :
@@ -30,11 +37,20 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
     return v.root
   }
 
+  override fun destroyView() {
+    super.destroyView()
+    viewBinding = null
+  }
+
+  /** Called when the view is created.
+   *
+   * You can customize, and setup and restore your view here.
+   *
+   * @param viewBinding inflated view as viewBinding
+   * @param viewState previously saved state of the view, null if it is first creation
+   */
   open fun onViewCreated(viewBinding: V, viewState: Bundle?) = Unit
 
-  /**
-   *
-   */
   final override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
     this.lifecycleOwner = lifecycleOwner
     this.viewActions = viewActions
@@ -60,15 +76,57 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
     viewActions = null
   }
 
+  /** Called when the view is bound with viewModel and viewActions.
+   *
+   * In this state the view is already bound with ViewDataBinding,
+   * if it contains BR.viewModel or BR.viewActions variables.
+   *
+   * This is the good place to start observing livedata or observables in the viewmodel.
+   *
+   * @param viewModel the viewmodel
+   * @param viewActions actions the view can invoke
+   * @param lifecycleOwner lifecycle owner you can use for observing your livedata
+   */
   protected open fun onBind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {}
 
+  /** Called when the view is unbound with the viewmodel.
+   *
+   * You can manually unbind your livedata or observables, if needed.
+   *
+   * @param lifecycleOwner lifecycle used to bind the view and viewMode
+   *
+   */
   protected open fun onUnbind(lifecycleOwner: LifecycleOwner) {}
 
+  /** Operator for nicer notation of livedata observation.
+   *
+   * Example:
+   *
+   * ```
+   * viewModel.data observeBy this::onDataChanged
+   * viewModel.data observeBy {it -> //something useful with it}
+   * ```
+   *
+   * @param setter observer callback on data change
+   */
   infix fun <T> LiveData<T>.observeBy(setter: (v: T?) -> Unit) {
     val lifecycleOwner = lifecycleOwner ?: throw RuntimeException("Can't bind unbinded views!")
     this.observe(lifecycleOwner, setter)
   }
 
+  /** Operator for nicer notation of livedata observation.
+   *
+   * It ignores null values.
+   *
+   * Example:
+   *
+   * ```
+   * viewModel.data observeNonNullBy this::onDataChanged
+   * viewModel.data observeNonNullBy {it -> //something useful with it}
+   * ```
+   *
+   * @param setter observer callback on data change
+   */
   infix fun <T> LiveData<T>.observeNonNullBy(setter: (v: T) -> Unit) {
     val lifecycleOwner = lifecycleOwner ?: throw RuntimeException("Can't bind unbinded views!")
     this.observe(lifecycleOwner) {

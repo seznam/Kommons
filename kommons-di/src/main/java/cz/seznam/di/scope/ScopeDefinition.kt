@@ -33,15 +33,15 @@ open class ScopeDefinition(val name: String) {
         factoryMap[key] = instanceFactory
     }
 
-    inline fun <reified T> factory(noinline creator: Scope.(ScopeParameters) -> T) {
-        registerInstanceFactory(NewInstanceFactory(T::class.java, creator))
+    inline fun <reified T> factory(specialization:String = "", noinline creator: Scope.(ScopeParameters) -> T) {
+        registerInstanceFactory(NewInstanceFactory(T::class.java, creator), specialization)
     }
 
-    inline fun <reified T> singleton(noinline creator: Scope.(ScopeParameters) -> T) {
-        registerInstanceFactory(SingletonFactory(T::class.java, creator))
+    inline fun <reified T> singleton(specialization:String = "", noinline creator: Scope.(ScopeParameters) -> T) {
+        registerInstanceFactory(SingletonFactory(T::class.java, creator), specialization)
     }
 
-    inline fun <reified T> weakReference(noinline creator: Scope.(ScopeParameters) -> T) {
-        registerInstanceFactory(WeakReferenceFactory(T::class.java, creator))
+    inline fun <reified T> weakReference(specialization:String = "", noinline creator: Scope.(ScopeParameters) -> T) {
+        registerInstanceFactory(WeakReferenceFactory(T::class.java, creator), specialization)
     }
 }
