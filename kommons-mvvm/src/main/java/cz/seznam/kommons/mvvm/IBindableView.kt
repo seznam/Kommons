@@ -21,7 +21,12 @@ interface IBindableView<in T : IViewModel, in A : IViewActions> {
    *
    * @return your view
    */
-  fun createView(inflater: LayoutInflater, parent: ViewGroup?, viewState: Bundle? = null): View
+  fun createView(
+    inflater: LayoutInflater,
+    viewLifecycleOwner: LifecycleOwner,
+    parent: ViewGroup?,
+    viewState: Bundle? = null
+  ): View
 
   /** Called when view is destroyed.
    *
