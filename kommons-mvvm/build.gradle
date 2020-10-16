@@ -23,21 +23,21 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 }
 
 dependencies {
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0-rc01'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.savedstate:savedstate:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kommons_kotlinVersion"
 }
 repositories {
