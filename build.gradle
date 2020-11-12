@@ -12,7 +12,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$kommons_androidGradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kommons_kotlinVersion"
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$kommons_dokkaVersion"
     }
 }
 

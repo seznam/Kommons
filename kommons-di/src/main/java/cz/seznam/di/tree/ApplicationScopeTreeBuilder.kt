@@ -21,7 +21,7 @@ class ApplicationScopeTreeBuilder(app: Application, private val appScope: Scope?
     app.registerActivityLifecycleCallbacks(this)
   }
 
-  override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+  override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
     if (activity is AppCompatActivity) {
       activity.supportFragmentManager.registerFragmentLifecycleCallbacks(this, true)
 
@@ -36,7 +36,7 @@ class ApplicationScopeTreeBuilder(app: Application, private val appScope: Scope?
     }
   }
 
-  override fun onActivityDestroyed(activity: Activity?) {
+  override fun onActivityDestroyed(activity: Activity) {
     if (activity is AppCompatActivity) {
       activity.supportFragmentManager.unregisterFragmentLifecycleCallbacks(this)
       Kodi.scopes.remove(activity.hashCode().toString())
@@ -81,13 +81,13 @@ class ApplicationScopeTreeBuilder(app: Application, private val appScope: Scope?
     return null
   }
 
-  override fun onActivityPaused(activity: Activity?) = Unit
+  override fun onActivityPaused(activity: Activity) = Unit
 
-  override fun onActivityResumed(activity: Activity?) = Unit
+  override fun onActivityResumed(activity: Activity) = Unit
 
-  override fun onActivityStarted(activity: Activity?) = Unit
+  override fun onActivityStarted(activity: Activity) = Unit
 
-  override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) = Unit
+  override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
 
-  override fun onActivityStopped(activity: Activity?) = Unit
+  override fun onActivityStopped(activity: Activity) = Unit
 }
