@@ -4,10 +4,6 @@ buildscript {
     repositories {
         jcenter()
     }
-
-    dependencies {
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
-    }
 }
 
 repositories {
@@ -18,7 +14,6 @@ repositories {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'org.jetbrains.dokka'
 android {
     compileSdkVersion kommons_compileVersion
 
@@ -39,7 +34,7 @@ android {
 
 dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.3.0-beta01'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -47,25 +42,4 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kommons_kotlinVersion"
-}
-
-dokka {
-    outputFormat = 'gfm'
-    outputDirectory = "$buildDir/javadoc"
-    includeNonPublic = false
-
-    packageOptions {
-        prefix = "android"
-        suppress = true
-    }
-
-    packageOptions {
-        prefix = "androidx"
-        suppress = true
-    }
-
-    packageOptions {
-        prefix = "io" // will match kotlin.internal and all sub-packages of it
-        suppress = true
-    }
 }
