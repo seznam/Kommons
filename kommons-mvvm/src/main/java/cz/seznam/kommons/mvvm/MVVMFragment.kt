@@ -42,7 +42,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         val viewModel = viewModel
 
         if (view != null && viewModel != null) {
-            val v = view.createView(obtainInflater(inflater), container, savedInstanceState)
+            val v = view.createView(obtainInflater(inflater), viewLifecycleOwner, container, savedInstanceState)
 
             view.bind(viewModel, viewActions, this)
             viewModel.onBind()

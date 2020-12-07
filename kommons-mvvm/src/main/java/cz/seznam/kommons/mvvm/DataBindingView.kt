@@ -30,15 +30,24 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
   var lifecycleOwner: LifecycleOwner? = null
 
   @CallSuper
-  override fun createView(inflater: LayoutInflater, parent: ViewGroup?, viewState: Bundle?): View {
+  override fun createView(
+    inflater: LayoutInflater,
+    viewLifecycleOwner: LifecycleOwner,
+    parent: ViewGroup?,
+    viewState: Bundle?
+  ): View {
+    this.lifecycleOwner = viewLifecycleOwner
     val v = DataBindingUtil.inflate<V>(inflater, viewRes, parent, false)
+    v.lifecycleOwner = viewLifecycleOwner
     this.viewBinding = v
-    onViewCreated(v, viewState)
+    onViewCreated(v, viewLifecycleOwner, viewState)
     return v.root
   }
 
   override fun destroyView() {
     super.destroyView()
+    this.lifecycleOwner = null
+    viewBinding?.lifecycleOwner = null
     viewBinding = null
   }
 
@@ -49,12 +58,11 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
    * @param viewBinding inflated view as viewBinding
    * @param viewState previously saved state of the view, null if it is first creation
    */
-  open fun onViewCreated(viewBinding: V, viewState: Bundle?) = Unit
+  open fun onViewCreated(viewBinding: V, viewLifecycleOwner: LifecycleOwner, viewState: Bundle?) =
+    Unit
 
   final override fun bind(viewModel: T, viewActions: A?, lifecycleOwner: LifecycleOwner) {
-    this.lifecycleOwner = lifecycleOwner
     this.viewActions = viewActions
-    viewBinding?.lifecycleOwner = lifecycleOwner
     viewBinding?.setVariable(BR.viewModel, viewModel)
     viewBinding?.setVariable(BR.viewActions, viewActions)
     this.viewModel = viewModel
@@ -66,12 +74,10 @@ open class DataBindingView<T : IViewModel, V : ViewDataBinding, A : IViewActions
   final override fun unbind(lifecycleOwner: LifecycleOwner) {
     onUnbind(lifecycleOwner)
 
-    this.lifecycleOwner = null
     bound = false
     viewBinding?.unbind()
     viewBinding?.setVariable(BR.viewModel, null)
     viewBinding?.setVariable(BR.viewActions, null)
-    viewBinding?.lifecycleOwner = null
     viewModel = null
     viewActions = null
   }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.LifecycleOwner
 
 /** Base dialog fragment for connecting view, viewmodel and viewactions together.
  *
@@ -42,7 +43,7 @@ abstract class MVVMDialogFragment<M : IViewModel, A : IViewActions> : DialogFrag
     val viewModel = viewModel
 
     if (view != null && viewModel != null) {
-      val v = view.createView(obtainInflater(inflater), container)
+      val v = view.createView(obtainInflater(inflater), viewLifecycleOwner, container)
 
       view.bind(viewModel, viewActions, this)
       viewModel.onBind()
