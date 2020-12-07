@@ -82,14 +82,12 @@ fun View.onSinglePreDraw(continueDrawing: Boolean = true, callback: () -> Unit) 
 fun View.animTranslationX(
     from: Float = translationX,
     to: Float
-): Animator = setViewAnimation(
-    this, ObjectAnimator.ofFloat(
-        this,
-        "translationX",
-        from,
-        to
-    )
-)
+): Animator = ObjectAnimator.ofFloat(
+    this,
+    "translationX",
+    from,
+    to
+).also { setAnimator(it) }
 
 /** Create animator of View.translationY and associate it with the view.
  *
@@ -104,14 +102,12 @@ fun View.animTranslationX(
 fun View.animTranslationY(
     from: Float = translationY,
     to: Float
-): Animator = setViewAnimation(
-    this, ObjectAnimator.ofFloat(
-        this,
-        "translationY",
-        from,
-        to
-    )
-)
+): Animator = ObjectAnimator.ofFloat(
+    this,
+    "translationY",
+    from,
+    to
+).also { setAnimator(it) }
 
 /** Create animator of View.alpha and associate it with the view.
  *
@@ -126,7 +122,9 @@ fun View.animTranslationY(
 fun View.animAlpha(
     from: Float = alpha,
     to: Float
-): Animator = setViewAnimation(this, ObjectAnimator.ofFloat(this, "alpha", from, to))
+): Animator = ObjectAnimator.ofFloat(this, "alpha", from, to).also {
+    setAnimator(it)
+}
 
 /** Create animator of View.scaleX and View.scaleY and associate it with the view.
  *
@@ -142,14 +140,13 @@ fun View.animateScale(
     from: Float = scale,
     to: Float
 ): Animator {
-
-    val anim = AnimatorSet()
-    anim.playTogether(
-        ObjectAnimator.ofFloat(this, "scaleX", from, to),
-        ObjectAnimator.ofFloat(this, "scaleY", from, to)
-    )
-
-    return setViewAnimation(this, anim)
+    return AnimatorSet().also {
+        it.playTogether(
+            ObjectAnimator.ofFloat(this, "scaleX", from, to),
+            ObjectAnimator.ofFloat(this, "scaleY", from, to)
+        )
+        setAnimator(it)
+    }
 }
 
 
@@ -157,7 +154,9 @@ fun View.animateRotation(
     from: Float = rotation,
     to: Float
 ): Animator {
-    return setViewAnimation(this, ObjectAnimator.ofFloat(this, "rotation", from, to))
+    return ObjectAnimator.ofFloat(this, "rotation", from, to).also {
+        setAnimator(it)
+    }
 }
 
 fun View.createTranslationX(from: Float = this.translationX, to: Float): Animator =
@@ -207,14 +206,12 @@ fun View.clearAnim() {
     oldAnim?.cancel()
 }
 
-private fun setViewAnimation(
-    view: View,
+fun View.setAnimator(
     animator: Animator
-): Animator {
-    (view.getTag(R.id.view_animator) as? Animator?)?.cancel()
-    view.setTag(R.id.view_animator, animator)
-    animator.onEnd { view.setTag(R.id.view_animator, null) }
-    return animator
+) {
+    clearAnim()
+    setTag(R.id.view_animator, animator)
+    animator.onEnd { setTag(R.id.view_animator, null) }
 }
 
 fun View.setPaddingLeft(padding: Int) = setPadding(padding, paddingTop, paddingRight, paddingBottom)
