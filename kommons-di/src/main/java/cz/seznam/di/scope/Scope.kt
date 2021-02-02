@@ -31,16 +31,15 @@ class Scope(
 
       if (parent == null) {
         throw RuntimeException("There is no parent of ${definitions[0].name} with factory for $key")
-      }
-      else {
-        parent.obtain(clazz, specialization) ?:
-        throw RuntimeException("Parent ${parent.definitions[0].name} can't create instance of $key")
+      } else {
+        parent.obtain(clazz, specialization)
+          ?: throw RuntimeException("Parent ${parent.definitions[0].name} can't create instance of $key")
       }
     }
   }
 
   fun release() {
-
+    instanceMap.clear()
   }
 }
 
