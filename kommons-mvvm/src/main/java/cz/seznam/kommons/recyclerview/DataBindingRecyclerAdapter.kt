@@ -92,6 +92,11 @@ abstract class DataBindingRecyclerAdapter<T, H : ViewDataBinding>(
         holder.viewBinding.executePendingBindings()
     }
 
+    override fun onViewRecycled(holder: ViewDataBindingHolder<H>) {
+        holder.viewBinding.unbind()
+        holder.viewBinding.setVariable(BR.viewModel, null)
+        holder.viewBinding.setVariable(BR.viewActions, null)
+    }
 
     override fun getItemViewType(position: Int): Int = getViewResource(position)
 
