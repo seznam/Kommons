@@ -50,8 +50,12 @@ object Kodi {
     return Scope(definition, parent, params)
   }
 
-  fun createContextScope(context: Context, scopeDefinition:  List<ContextScopeDefinition>): Scope {
-    return createScope(scopeDefinition, null, ScopeParameters(context))
+  fun createContextScope(
+    context: Context,
+    scopeDefinition: List<ContextScopeDefinition>,
+    parent: Scope? = null
+  ): Scope {
+    return createScope(scopeDefinition, parent, ScopeParameters(context))
   }
 
   fun start(

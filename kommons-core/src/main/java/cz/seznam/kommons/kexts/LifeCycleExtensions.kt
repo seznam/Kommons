@@ -1,7 +1,9 @@
 package cz.seznam.kommons.kexts
 
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import cz.seznam.kommons.app.LifecycleGuardedAction
 import cz.seznam.kommons.app.LifecycleGuardedVoidAction
 
@@ -14,8 +16,8 @@ import cz.seznam.kommons.app.LifecycleGuardedVoidAction
  * @see LifecycleGuardedVoidAction
  */
 fun LifecycleOwner.guardAction(action: (() -> Unit)): () -> Unit {
-    val guardian = LifecycleGuardedVoidAction(lifecycle, action)
-    return guardian::invoke
+  val guardian = LifecycleGuardedVoidAction(lifecycle, action)
+  return guardian::invoke
 }
 
 /** Guard action with LifecycleOwner.
@@ -27,8 +29,8 @@ fun LifecycleOwner.guardAction(action: (() -> Unit)): () -> Unit {
  * @see LifecycleGuardedAction
  */
 fun <P> LifecycleOwner.guardAction(action: ((P) -> Unit)): (param: P) -> Unit {
-    val guardian = LifecycleGuardedAction(lifecycle, action)
-    return guardian::invoke
+  val guardian = LifecycleGuardedAction(lifecycle, action)
+  return guardian::invoke
 }
 
 /** Guard action with this Lifecycle.
@@ -40,8 +42,8 @@ fun <P> LifecycleOwner.guardAction(action: ((P) -> Unit)): (param: P) -> Unit {
  * @see LifecycleGuardedVoidAction
  */
 fun Lifecycle.guardAction(action: (() -> Unit)): () -> Unit {
-    val guardian = LifecycleGuardedVoidAction(this, action)
-    return guardian::invoke
+  val guardian = LifecycleGuardedVoidAction(this, action)
+  return guardian::invoke
 }
 
 /** Guard action with this Lifecycle.
@@ -53,8 +55,8 @@ fun Lifecycle.guardAction(action: (() -> Unit)): () -> Unit {
  * @see LifecycleGuardedAction
  */
 fun <P> Lifecycle.guardAction(action: ((P) -> Unit)): (param: P) -> Unit {
-    val guardian = LifecycleGuardedAction(this, action)
-    return guardian::invoke
+  val guardian = LifecycleGuardedAction(this, action)
+  return guardian::invoke
 }
 
 /** Invoke callback, if lifecycle is resumed.
@@ -62,9 +64,9 @@ fun <P> Lifecycle.guardAction(action: ((P) -> Unit)): (param: P) -> Unit {
  * @param callback action to invoke when resumed
  */
 inline fun LifecycleOwner.ifResumed(callback: () -> Unit) {
-    if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-        callback()
-    }
+  if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+    callback()
+  }
 }
 
 /** Invoke callback, if lifecycle is resumed.
@@ -72,8 +74,26 @@ inline fun LifecycleOwner.ifResumed(callback: () -> Unit) {
  * @param callback action to invoke when resumed
  */
 inline fun Lifecycle.ifResumed(callback: () -> Unit) {
-    if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-        callback()
-    }
+  if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+    callback()
+  }
+}
+
+inline fun LifecycleOwner.onResume(crossinline callback: () -> Unit) {
+  lifecycle.addObserver(object : LifecycleObserver {
+      @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+      fun onResume() {
+          callback()
+      }
+  })
+}
+
+inline fun LifecycleOwner.onPause(crossinline callback: () -> Unit) {
+    lifecycle.addObserver(object : LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+        fun onPause() {
+            callback()
+        }
+    })
 }
 
