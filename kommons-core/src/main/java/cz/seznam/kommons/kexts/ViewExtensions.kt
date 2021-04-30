@@ -54,21 +54,6 @@ fun View.isInvisible(): Boolean = visibility == View.INVISIBLE
  */
 fun View.isGone(): Boolean = visibility == View.GONE
 
-/** Run single onPreDraw callback.
- *
- * @param callback callback when onPreDraw is called
- */
-fun View.onSinglePreDraw(continueDrawing: Boolean = true, callback: () -> Unit) {
-    val view = this
-    viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-        override fun onPreDraw(): Boolean {
-            callback.invoke()
-            view.viewTreeObserver.removeOnPreDrawListener(this)
-            return continueDrawing
-        }
-    })
-}
-
 /** Create animator of View.translationX and associate it with the view.
  *
  * Animator is saved as tag to the view.
