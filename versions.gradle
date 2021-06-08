@@ -1,4 +1,4 @@
-ext.kommons_kotlinVersion = '1.4.31'
+ext.kommons_kotlinVersion = '1.5.10'
 ext.kommons_compileVersion = 30
 ext.kommons_targetVersion = 30
 ext.kommons_androidGradleVersion = "4.1.0"
