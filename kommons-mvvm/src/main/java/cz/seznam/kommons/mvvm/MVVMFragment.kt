@@ -27,7 +27,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
 
     /** View bindable with the viewmodel.
      */
-    abstract val view: IBindableView<M, A>?
+    abstract val bindableView: IBindableView<M, A>?
 
     /** View actions invokable by the view.
      */
@@ -38,7 +38,7 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = view
+        val view = bindableView
         val viewModel = viewModel
 
         if (view != null && viewModel != null) {
@@ -55,14 +55,14 @@ abstract class MVVMFragment<M : IViewModel, A : IViewActions> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        view?.unbind(this)
-        view?.destroyView()
+        bindableView?.unbind(this)
+        bindableView?.destroyView()
         viewModel?.onUnbind()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        view?.saveViewState(outState)
+        bindableView?.saveViewState(outState)
     }
 
     /** Obtains inflater for creating the view.
