@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.LifecycleOwner
 
 /** Base dialog fragment for connecting view, viewmodel and viewactions together.
  *
@@ -28,7 +27,7 @@ abstract class MVVMDialogFragment<M : IViewModel, A : IViewActions> : DialogFrag
 
   /** View bindable with the view.
    */
-  abstract val view: IBindableView<M, A>?
+  abstract val bindableView: IBindableView<M, A>?
 
   /** View actions invokable by the view.
    */
@@ -39,7 +38,7 @@ abstract class MVVMDialogFragment<M : IViewModel, A : IViewActions> : DialogFrag
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val view = view
+    val view = bindableView
     val viewModel = viewModel
 
     if (view != null && viewModel != null) {
@@ -56,8 +55,8 @@ abstract class MVVMDialogFragment<M : IViewModel, A : IViewActions> : DialogFrag
   override fun onDestroyView() {
     super.onDestroyView()
 
-    view?.unbind(this)
-    view?.destroyView()
+    bindableView?.unbind(this)
+    bindableView?.destroyView()
     viewModel?.onUnbind()
   }
 
