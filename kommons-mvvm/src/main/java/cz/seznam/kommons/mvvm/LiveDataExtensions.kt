@@ -3,21 +3,8 @@ package cz.seznam.kommons.mvvm
 import androidx.lifecycle.*
 import kotlin.reflect.KMutableProperty0
 
-/** Extension passing method reference as LiveData observer.
- *
- * @param owner lifecycle owner
- * @param callback called when value is changed
- *
- * @author Jakub Janda
- */
-fun <T : Any?> LiveData<T>.observe(
-  owner: LifecycleOwner,
-  callback: (value: T?) -> Unit
-) = observe(owner, androidx.lifecycle.Observer { callback.invoke(it) })
-
-
 class LiveDataObservers(val lifecycleOwner: LifecycleOwner) {
-  fun <T> LiveData<T>.observe(callback: (value: T?) -> Unit) = observe(lifecycleOwner, Observer {
+  fun <T> LiveData<T>.observe(callback: (value: T?) -> Unit) = observe(lifecycleOwner, {
     callback.invoke(it)
   })
 

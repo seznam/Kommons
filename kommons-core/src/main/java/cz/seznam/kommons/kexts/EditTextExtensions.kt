@@ -33,7 +33,7 @@ inline fun EditText.onTextChanged(crossinline listener: (query: String) -> Unit)
         ) = listener(s.toString())
     })
 
-fun EditText.onQuerySubmited(allowBlankQuery: Boolean = false, callback: (String) -> Unit) {
+fun EditText.onQuerySubmitted(allowBlankQuery: Boolean = false, callback: (String) -> Unit) {
     setOnEditorActionListener { v, _, event ->
 
         if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
