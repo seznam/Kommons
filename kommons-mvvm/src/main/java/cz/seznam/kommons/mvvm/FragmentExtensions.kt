@@ -16,10 +16,11 @@ import androidx.lifecycle.ViewModelProvider
  */
 inline fun <reified V : ViewModel> Fragment.obtainViewModel(crossinline viewModelFactory: () -> V): V {
   return ViewModelProvider(this, object : ViewModelProvider.Factory {
-    override fun <V : ViewModel?> create(modelClass: Class<V>): V {
+    override fun <V : ViewModel> create(modelClass: Class<V>): V {
       return viewModelFactory() as V
     }
-  }).get(V::class.java)
+
+  })[V::class.java]
 }
 
 /** Extension for obtaining viewmodel from fragment as viewmodel store owner with state handle.
@@ -35,12 +36,12 @@ inline fun <reified V : ViewModel> Fragment.obtainViewModelWithState(
   crossinline viewModelFactory: (savedStateHandle: SavedStateHandle) -> V
 ): V {
   return ViewModelProvider(this, object : AbstractSavedStateViewModelFactory(this, defaultArgs) {
-    override fun <V : ViewModel?> create(
+    override fun <V : ViewModel> create(
       key: String,
       modelClass: Class<V>,
       handle: SavedStateHandle
     ): V {
       return viewModelFactory(handle) as V
     }
-  }).get(V::class.java)
+  })[V::class.java]
 }
