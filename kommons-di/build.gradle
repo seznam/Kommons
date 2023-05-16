@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply from: '../versions.gradle'
 
 android {
+    namespace "cz.seznam.di"
     compileSdkVersion kommons_compileVersion
 
     defaultConfig {
@@ -20,6 +21,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 

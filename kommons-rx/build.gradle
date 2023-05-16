@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply from: '../versions.gradle'
 
 android {
+    namespace "cz.seznam.kommons.rx"
     compileSdkVersion kommons_compileVersion
 
     defaultConfig {
@@ -18,6 +19,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
