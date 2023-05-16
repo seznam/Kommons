@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply from: '../versions.gradle'
 
 android {
+    namespace "cz.seznam.kommons.mvvm"
     compileSdkVersion kommons_compileVersion
 
     defaultConfig {
@@ -22,6 +23,15 @@ android {
 
     buildFeatures {
         dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
